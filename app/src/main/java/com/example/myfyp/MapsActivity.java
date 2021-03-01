@@ -5,9 +5,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,6 +20,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.data.Feature;
+import com.google.maps.android.data.Layer;
+import com.google.maps.android.data.geojson.GeoJsonLayer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -24,6 +37,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -44,10 +60,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
+        try {
+            GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.covid19statistics, this);
+            layer.addLayerToMap();
+
+
+            layer.setOnFeatureClickListener(new Layer.OnFeatureClickListener()
+            {
+                @Override
+                public void onFeatureClick(Feature feature) {
+                    // Toast.makeText(MapsActivity.this,"Feature Clicked"+ feature.getProperty("CountyName"),Toast.LENGTH_LONG).show();
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(MapsActivity.this);
+                    builder1.setMessage("County Selected: " + feature.getProperty("CountyName") + "\n" + "Current Confirmed Cases: " + feature.getProperty("ConfirmedCovidCases")+ "\n" + "Last Updated: " + feature.getProperty("TimeStampDate"));
+                    builder1.setCancelable(true);
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+
+                }
+            });
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+
         // Add a marker in Sydney and move the camera
-        LatLng cupajoeSallaghan = new LatLng(53.8911931,-7.5249907);
-        mMap.addMarker(new MarkerOptions().position(cupajoeSallaghan).title("Marker in CupaJoe Sallaghan"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(cupajoeSallaghan));
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         if (mMap !=null) {

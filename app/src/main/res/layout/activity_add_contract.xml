@@ -21,7 +21,7 @@
         android:id="@+id/etAddposition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="Enter Position(Role):"
         android:inputType="textPersonName"
@@ -34,7 +34,7 @@
         android:id="@+id/etAddAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Add Address:"
         android:inputType="textPersonName"
@@ -55,55 +55,52 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.915" />
 
-    <EditText
-        android:id="@+id/etAddstartdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Enter Start Date:"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/tvStartdate"
+        android:layout_width="226dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="32dp"
+        android:text="Set Start Date"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddAddress" />
 
-    <EditText
-        android:id="@+id/etAddenddate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Enter End Date:"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/tvEnddate"
+        android:layout_width="226dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="36dp"
+        android:text="Set End Date"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddstartdate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStartdate" />
 
-    <EditText
-        android:id="@+id/etAddstarttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Enter Start Time:"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/tvStarttime"
+        android:layout_width="226dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="40dp"
+        android:text="Set Start Time"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddenddate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEnddate" />
 
-    <EditText
-        android:id="@+id/etAddcontent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Enter End Time:"
-        android:inputType="textPersonName"
+    <TextView
+        android:id="@+id/tvEndTime"
+        android:layout_width="226dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="40dp"
+        android:text="Set Start Time"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddstarttime" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStarttime" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

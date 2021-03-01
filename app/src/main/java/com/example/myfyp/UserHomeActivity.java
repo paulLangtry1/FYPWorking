@@ -189,6 +189,9 @@ public class UserHomeActivity extends AppCompatActivity
             case R.id.item7:
                 chatForum();
                 return true;
+            case R.id.item8:
+                maps();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -247,7 +250,7 @@ public class UserHomeActivity extends AppCompatActivity
     public void maps()
     {
 
-        Intent intent = new Intent(UserHomeActivity.this, verifyActivity.class);
+        Intent intent = new Intent(UserHomeActivity.this, MapsActivity.class);
         startActivity(intent);
 
 
