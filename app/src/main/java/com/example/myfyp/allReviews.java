@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,12 +20,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnContractListener
 {
 
     ArrayList<Feedback> allFeedback = new ArrayList<Feedback>();
+    private float experienceavg;
 
     private FirebaseDatabase database;
     private DatabaseReference ref;
@@ -30,6 +37,10 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String uid;
+    private TextView tv;
+    private ArrayList<Float> experienceList = new ArrayList<Float>();
+    private String currentcompany;
+    private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +56,8 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
 
+
+
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -52,11 +65,13 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
         feedbackAdapter = new FeedbackAdapter(allFeedback,this::onContractClick);
         mRecyclerView.setAdapter(feedbackAdapter);
 
-        ref.child("Feedback").addValueEventListener(new ValueEventListener() {
+        ref.child("CollectiveFeedback").addValueEventListener(new ValueEventListener()
+        {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> children = snapshot.getChildren();
-                for (DataSnapshot child : children) {
+                for (DataSnapshot child : children)
+                {
                     Feedback feedback = child.getValue(Feedback.class);
                     //  if (contract.getUID().equals(uid)) {
                     allFeedback.add(feedback);
@@ -71,14 +86,87 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
             }
         });
 
+
+
     }
     @Override
     public void onContractClick(int position)
     {
         allFeedback.get(position);
-        String feedbackID = allFeedback.get(position).getFeedbackid();
-        Intent intent = new Intent(allReviews.this,CurrentFeedback.class);
-        intent.putExtra( "feedbackID", feedbackID);
-        startActivity(intent);
+        String companyID = allFeedback.get(position).getCompanyID();
+       // Intent intent = new Intent(allReviews.this,CurrentFeedback.class);
+       // intent.putExtra( "feedbackID", feedbackID);
+       // startActivity(intent);
+
+        ref.child("Feedback").addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child : children)
+                {
+                    Feedback feedback = child.getValue(Feedback.class);
+                    if(feedback.getCompanyID().equals(companyID))
+                    {
+                        currentcompany = feedback.getCompanyName();
+                        Float experience = Float.valueOf(feedback.getExperience());
+                        experienceList.add(experience);
+
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Log.m("DBE Error","Cancel Access DB");
+            }
+        });
+
+
+        avererageExperience();
+
+
+        displayAlert();
+
+
+
+
     }
+
+
+
+    private void avererageExperience()
+    {
+        float total = 0;
+        float average;
+        for(int i = 0; i<experienceList.size(); i++)
+        {
+            float currentNo = experienceList.get(i);
+            total = currentNo + total;
+            average = total / experienceList.size();
+            experienceavg = average;
+
+        }
+
+
+
+    }
+    private void displayAlert()
+    {
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(allReviews.this);
+        builder1.setMessage("Company Selected: " + currentcompany + "\n" + "User Average Experience: " +  decimalFormat.format(experienceavg) + " Stars" );
+        builder1.setCancelable(true);
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+    }
+
+
+
+
 }

@@ -36,7 +36,7 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
     private FirebaseDatabase db;
     private String uid;
     private DatePicker dpStartdate,dpEnddate;
-    private EditText etAddpositon,etAddaddress,etAddenddate,etAddstartdate,etAddendtime,etAddstarttime;
+    private EditText etAddpositon,etAddaddress,etAddenddate,etAddstartdate,etAddendtime,etAddstarttime,etaddCounty;
     private TextView tvstartdate,tvenddate,tvstarttime,tvendtime;
     private Button btnCreateContract;
     private Company currentcompany;
@@ -66,6 +66,7 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
         tvenddate = findViewById(R.id.tvEnddate);
         tvstarttime = findViewById(R.id.tvStarttime);
         tvendtime = findViewById(R.id.tvEndTime);
+        etaddCounty = findViewById(R.id.etAddCounty);
 
         btnCreateContract = findViewById(R.id.btnAddComment);
 
@@ -129,6 +130,7 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
                                 String endtime = endTime;
                                 String starttime = startTime;
                                 String companyID = uid;
+                                String county = etaddCounty.getText().toString();
                                 String userID = "";
                                 String companyName = currentName;
 
@@ -136,7 +138,7 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
                                 Toast.makeText(AddContract.this,"Contract Created",Toast.LENGTH_SHORT).show();
 
                                 String contractID = dbRef.push().getKey();
-                                Contract contract = new Contract(position,address,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                Contract contract = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
 
                                 dbRef.child(contractID).setValue(contract);
 
@@ -206,12 +208,14 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
         {
             tvstarttime.setText("Hours: " +hourOfDay + " Minute: " + minute);
             startTime= hourOfDay + " : " + minute;
+            tvstarttime.setText(startTime);
 
         }
         else
         {
             tvendtime.setText("Hours: " +hourOfDay + " Minute: " + minute);
             endTime=hourOfDay + " : " + minute;
+            tvendtime.setText(endTime);
         }
 
     }

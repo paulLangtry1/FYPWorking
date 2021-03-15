@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myfyp">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -10,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,17 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFYP">
-        <activity android:name=".Approve_current_safepass"></activity>
-        <activity android:name=".approve_safe_pass" />
-        <activity android:name=".Company_Approve_Disaprove_User" />
-        <activity android:name=".Company_consider_contract" />
-        <activity android:name=".company_edit_profile" />
-        <activity android:name=".chatForum" />
-        <activity android:name=".Edit_profile" />
-        <activity android:name=".CurrentFeedback" />
-        <activity android:name=".allReviews" />
-        <activity android:name=".User_Feedback" />
-        <activity android:name=".UserContractHistory" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,8 +30,22 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDPEyXMry97-g1Qoa3ekP6FrUYgZZVmmHs" />
+            android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".MapsSiteLocation"
+            android:label="@string/title_activity_maps_site_location"></activity>
+        <activity android:name=".Approve_current_safepass" />
+        <activity android:name=".approve_safe_pass" />
+        <activity android:name=".Company_Approve_Disaprove_User" />
+        <activity android:name=".Company_consider_contract" />
+        <activity android:name=".company_edit_profile" />
+        <activity android:name=".chatForum" />
+        <activity android:name=".Edit_profile" />
+        <activity android:name=".CurrentFeedback" />
+        <activity android:name=".allReviews" />
+        <activity android:name=".User_Feedback" />
+        <activity android:name=".UserContractHistory" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

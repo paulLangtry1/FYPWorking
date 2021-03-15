@@ -2,13 +2,25 @@ package com.example.myfyp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,11 +34,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class UserHomeActivity extends AppCompatActivity
 {
     private EditText etSearch;
-    private Button btnSearch,btnViewall,btnAddContract,btnViewUpdate,btnverify,btnmaps;
+    private Button btnlaunchmaps,btncalender;
     private TextView tvWelcome,tvstatus;
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
@@ -39,6 +57,13 @@ public class UserHomeActivity extends AppCompatActivity
     Boolean virginAccount = false;
     Boolean accepted = false;
     private User currentuser;
+    ArrayList<Contract> allContracts = new ArrayList<Contract>();
+    RecyclerView mRecyclerView;
+    ActivejobAdapter myAdapter;
+    private String address;
+    private String county,startdate,enddate,starttime,endtime,useremail,title;
+
+
 
 
 
@@ -47,10 +72,16 @@ public class UserHomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+
+        btnlaunchmaps = findViewById(R.id.btnlaunchmaps);
+        btncalender =findViewById(R.id.btncalender);
 
 
 
-        btnAddContract = findViewById(R.id.btnAddComment);
+
+
 
         tvWelcome = findViewById(R.id.tvWelcome);
         tvstatus = findViewById(R.id.tvPending);
@@ -64,6 +95,12 @@ public class UserHomeActivity extends AppCompatActivity
         DatabaseReference c1v2= FirebaseDatabase.getInstance().getReference().child("user").child(uid).child("userID");
         c1v2.setValue(uid);
 
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        myAdapter = new ActivejobAdapter(allContracts,this::onContractClick);
+        mRecyclerView.setAdapter(myAdapter);
 
 
 
@@ -97,6 +134,52 @@ public class UserHomeActivity extends AppCompatActivity
             }
         });
 
+        dbRef.child("ActiveContracts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child : children)
+                {
+                    Contract contract = child.getValue(Contract.class);
+                    if(contract.getUserID().equals(uid))
+                    {
+                        address = contract.getAddress();
+                        county =contract.getCounty();
+                        startdate = contract.getStartdate();
+                        enddate = contract.getEnddate();
+                        starttime = contract.getStarttime();
+                        endtime = contract.getEndtime();
+                        title = contract.getPosition();
+
+                        //  if (contract.getUID().equals(uid)) {
+                        allContracts.add(contract);
+
+                        myAdapter.notifyItemInserted(allContracts.size() - 1);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Log.m("DBE Error","Cancel Access DB");
+            }
+        });
+
+        btnlaunchmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(UserHomeActivity.this,MapsSiteLocation.class);
+                intent.putExtra( "address", address);
+                intent.putExtra( "county", county);
+                startActivity(intent);
+
+            }
+        });
+
+
+
 
         dbRef.child("user").addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,6 +189,7 @@ public class UserHomeActivity extends AppCompatActivity
                     if (child.getKey().equals(uid)) {
                         currentuser = child.getValue(User.class);
                         String currentName = currentuser.getUsername();
+                        useremail = currentuser.getEmail();
                         tvWelcome.setText("Welcome " + currentName + "!");
                         tvstatus.setText(currentuser.getStatus());
 
@@ -119,6 +203,76 @@ public class UserHomeActivity extends AppCompatActivity
             }
         });
 
+        btncalender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+               // Calendar beginCal = Calendar.getInstance();
+                //beginCal.set(year, mnth, day, hrs, min);
+                //startTime = beginCal.getTimeInMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy");
+                Calendar begincal = Calendar.getInstance();
+                Calendar endcal = Calendar.getInstance();
+                Date enDate = new Date();
+
+                String[] startTime = starttime.split(":");
+                String hour = startTime[0];
+                String min = startTime[1];
+
+                String[] endTime = endtime.split(":");
+                String hourend = endTime[0];
+                String minend = endTime[1];
+
+               // Integer.parseInt(hour),Integer.parseInt(min);
+                try
+                {
+                    Date stDate = new Date();
+                    stDate= sdf.parse(startdate + " " + startTime);
+                    Calendar cal1 = Calendar.getInstance();
+                    cal1.setTime(stDate);
+
+
+
+                    begincal.set(cal1.get(Calendar.YEAR),cal1.get(Calendar.MONTH),cal1.get(Calendar.DAY_OF_MONTH),cal1.get(Calendar.HOUR_OF_DAY),cal1.get(Calendar.MINUTE));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    enDate= sdf.parse(enddate + " " + endTime);
+                    Calendar cal2 = Calendar.getInstance();
+                    cal2.setTime(enDate);
+                    endcal.set(cal2.get(Calendar.YEAR),cal2.get(Calendar.MONTH),cal2.get(Calendar.DAY_OF_MONTH),cal2.get(Calendar.HOUR_OF_DAY),cal2.get(Calendar.MINUTE));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
+
+
+                Intent intent = new Intent(Intent.ACTION_INSERT);
+                intent.setData(CalendarContract.Events.CONTENT_URI);
+                intent.putExtra(CalendarContract.Events.TITLE, title);
+               // intent.putExtra(CalendarContract.Events.ALL_DAY,"True")
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION,address + "\n"  + county);
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begincal.getTimeInMillis());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endcal.getTimeInMillis());
+                intent.putExtra(Intent.EXTRA_EMAIL, useremail);
+
+                startActivity(intent);
+
+
+
+            }
+        });
+
+/*
+
+ */
 
 
 
@@ -254,5 +408,12 @@ public class UserHomeActivity extends AppCompatActivity
         startActivity(intent);
 
 
+    }
+    public void onContractClick(int position)
+    {
+        allContracts.get(position);
+        Intent intent = new Intent(UserHomeActivity.this,CurrentContract.class);
+        intent.putExtra( "Position", position);
+        //startActivity(intent);
     }
 }

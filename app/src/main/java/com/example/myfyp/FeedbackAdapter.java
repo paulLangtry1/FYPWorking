@@ -80,7 +80,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
     public void onBindViewHolder(@NonNull FeedbackAdapter.MyViewHolder holder, int position) {
 
         final Feedback fb=fbFromDB.get(position);
-        holder.txtView.setText("Position :"+fb.getPosition()+"\n" + "\n" + "Company Name :"+ fb.getCompanyName()+ "\n" + "Experince :"+fb.getExperience());
+        holder.txtView.setText("Position :"+fb.getPosition()+"\n" + "\n" + "Company Name :"+ fb.getCompanyName()+ "\n");
     }
     public void add(int position, Feedback feedback){
         fbFromDB.add(position, feedback);

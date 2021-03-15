@@ -119,6 +119,7 @@ public class CurrentContract extends AppCompatActivity {
                                    String endtime = contract.getEndtime();
                                    String starttime = contract.getStarttime();
                                    String userID = userid;
+                                   String county = contract.getCounty();
                                    String contractID = contract.getContractID();
                                    String companyName = contract.getCompanyName();
                                    String companyID = contract.getCompanyID();
@@ -126,10 +127,10 @@ public class CurrentContract extends AppCompatActivity {
                                    String keyid =  dbRef.push().getKey();
 
 
-                                   Contract contracthistory = new Contract(position,address,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                   Contract contracthistory = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
                                    dbRef.child(keyid).setValue(contracthistory);
 
-                                   Contract contractconsideration = new Contract(position,address,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                   Contract contractconsideration = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
                                    dbrefAcceptance.child(keyid).setValue(contractconsideration);
 
 

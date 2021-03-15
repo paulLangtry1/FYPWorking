@@ -8,8 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,32 +43,28 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.data.Feature;
-import com.google.maps.android.data.Layer;
 import com.google.maps.android.data.geojson.GeoJsonLayer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-
-
-
+public class MapsSiteLocation extends FragmentActivity implements OnMapReadyCallback {
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -87,10 +83,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
+            getLocationFromAddress();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
 
                 return;
             }
@@ -101,12 +99,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         queue = Volley.newRequestQueue(this);
 
-       addLayer_urlGeoJson();
+        addLayer_urlGeoJson();
 
 
 
 
-        
+
+
+
 
 
     }
@@ -119,11 +119,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final float DEFAULT_ZOOM = 15f;
 
 
+
     //widgets
     private EditText mSearchText;
     private ImageView mGps;
 
     private RequestQueue queue;
+
+    //intents
+    private String address;
+    private String county;
 
 
     //vars
@@ -132,9 +137,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
 
         mSearchText = (EditText) findViewById(R.id.input_search);
         mGps = (ImageView) findViewById(R.id.ic_gps);
@@ -177,8 +184,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlstring, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response)
+            {
                 renderGeoJsonlayer(response);
+
 
             }
         }, new Response.ErrorListener() {
@@ -199,7 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         String searchString = mSearchText.getText().toString();
 
-        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        Geocoder geocoder = new Geocoder(MapsSiteLocation.this);
         List<Address> list = new ArrayList<>();
         try{
             list = geocoder.getFromLocationName(searchString, 1);
@@ -245,7 +254,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapsSiteLocation.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -273,7 +282,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(MapsActivity.this);
+        mapFragment.getMapAsync(MapsSiteLocation.this);
     }
 
     private void getLocationPermission(){
@@ -353,7 +362,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     result = stringBuilder.toString();
                     httpURLConnection.disconnect();
                 } else {
-                    Toast.makeText(MapsActivity.this, "service connection not successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsSiteLocation.this, "service connection not successful", Toast.LENGTH_LONG).show();
                 }
             } catch (MalformedURLException e)
             {
@@ -372,37 +381,82 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void renderGeoJsonlayer(String result)
+
     {
         GeoJsonLayer layer = null;
 
         try {
             JSONObject geoJsonobject = new JSONObject(result);//convert string to JSON Object
-            layer = new GeoJsonLayer(mMap,geoJsonobject);
-            layer.addLayerToMap();
+            JSONArray jsonArray =  geoJsonobject.getJSONArray("features");
+            //String countyname = geoJsonobject.getString("CountyName");
+            for(int i =0; i < jsonArray.length(); i++)
+            {
+                JSONObject children = jsonArray.getJSONObject(i);
+                String countyname = children.getJSONObject("properties").getString("CountyName");
+
+                if(countyname.equals("Cavan"))
+                {
+                   // layer = new GeoJsonLayer(mMap,geoJsonobject);
+                    //layer.addLayerToMap();
+                    double longitude = children.getJSONObject("properties").getDouble("Long");
+                    double lat = children.getJSONObject("properties").getDouble("Lat");
+
+                    LatLng latLng = new LatLng(lat, longitude);
+
+                    MarkerOptions options = new MarkerOptions()
+                            .position(latLng)
+                            .title("Cavan");
+                    mMap.addMarker(options);
+
+                    moveCamera(latLng,
+                            DEFAULT_ZOOM,
+                            "My Location");
+
+
+
+                }
+            }
+
         } catch (JSONException e) {
             Log.e("TAG","GeoJSON file could not be converted to geojson object");
             e.printStackTrace();
 
         }
-        layer.setOnFeatureClickListener(new GeoJsonLayer.GeoJsonOnFeatureClickListener() {
-            @Override
-            public void onFeatureClick(Feature feature) {
 
-
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(MapsActivity.this);
-                        builder1.setMessage("County Selected: " + feature.getProperty("CountyName") + "\n" + "Current Confirmed Cases: " + feature.getProperty("ConfirmedCovidCases")+ "\n" + "Last Updated: " + feature.getProperty("TimeStampDate"));
-                        builder1.setCancelable(true);
-
-                        AlertDialog alert11 = builder1.create();
-                        alert11.show();
-
-            }
-        });
 
 
     }
 
 
+    public LatLng getLocationFromAddress()
+    {
+        address = getIntent().getExtras().getString("address");
+        //county = getIntent().getExtras().getString("county");
 
+
+        Geocoder coder = new Geocoder(MapsSiteLocation.this);
+        List<Address> addresslist;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            addresslist = coder.getFromLocationName(address, 5);
+            if (addresslist == null) {
+                return null;
+            }
+
+            Address location = addresslist.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+            moveCamera(new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM,
+                    address);
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 
 }

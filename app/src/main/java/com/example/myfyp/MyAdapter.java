@@ -84,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         final Contract contract=contractssFromDB.get(position);
-        holder.txtView.setText("Position :"+contract.getPosition()+"\n" + "\n" + "Address :"+contract.getAddress()+ "\n" + "Start Date :"+contract.getStartdate()+ "\n" + "End Date :"+contract.getEnddate());
+        holder.txtView.setText("Position :"+contract.getPosition()+"\n" + "\n" + "Address :"+contract.getAddress()+"\n" + "County:"+contract.getCounty()+ "\n" + "Start Date :"+contract.getStartdate()+ "\n" + "End Date :"+contract.getEnddate());
 
     }
     public void add(int position, Contract contract){

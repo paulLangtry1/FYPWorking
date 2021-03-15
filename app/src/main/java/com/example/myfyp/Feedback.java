@@ -47,6 +47,16 @@ public class Feedback
     String companyName;
     String position;
 
+    public String getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
+    }
+
+    String companyID;
+
     public String getExperience() {
         return experience;
     }
@@ -71,7 +81,7 @@ public class Feedback
         this.description = description;
     }
 
-    public Feedback(String experience, String pay,String description, String useruid,String companyName,String position,String feedbackid)
+    public Feedback(String experience, String pay,String description, String useruid,String companyName,String position,String feedbackid,String companyID)
     {
         this.experience = experience;
         this.pay = pay;
@@ -80,6 +90,7 @@ public class Feedback
         this.companyName = companyName;
         this.position = position;
         this.feedbackid = feedbackid;
+        this.companyID = companyID;
 
     }
 

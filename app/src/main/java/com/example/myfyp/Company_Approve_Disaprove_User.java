@@ -257,6 +257,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                                     String address = contract.getAddress();
                                     String enddate = contract.getEnddate();
                                     String startdate = contract.getStartdate();
+                                    String county = contract.getCounty();
                                     String endtime = contract.getEndtime();
                                     String starttime = contract.getStarttime();
                                     String userID = contract.getUserID();
@@ -267,7 +268,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                                     String keyid =  dbRef.push().getKey();
 
 
-                                    Contract activecontracts = new Contract(position,address,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                    Contract activecontracts = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
                                     dbrefactivecontracts.child(keyid).setValue(activecontracts);
 
                                     Intent intent = new Intent(Company_Approve_Disaprove_User.this, CompanyHomeActivity.class);

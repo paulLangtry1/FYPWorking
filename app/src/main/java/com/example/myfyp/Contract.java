@@ -52,9 +52,10 @@ public class Contract
 
     String position;
 
-    public Contract(String position, String address, String startdate, String enddate, String starttime, String endtime,String userID,String contractID,String companyName,String companyID) {
+    public Contract(String position, String address,String county, String startdate, String enddate, String starttime, String endtime,String userID,String contractID,String companyName,String companyID) {
         this.position = position;
         this.address = address;
+        this.county = county;
         this.startdate = startdate;
         this.enddate = enddate;
         this.starttime = starttime;
@@ -66,6 +67,16 @@ public class Contract
     }
 
     String address;
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    String county;
     String startdate;
     String enddate;
     String starttime;

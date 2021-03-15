@@ -34,7 +34,7 @@
         android:id="@+id/etAddAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Add Address:"
         android:inputType="textPersonName"
@@ -42,6 +42,19 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddposition" />
+
+    <EditText
+        android:id="@+id/etAddCounty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Add County:"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddAddress" />
 
     <Button
         android:id="@+id/btnAddComment"
@@ -59,11 +72,11 @@
         android:id="@+id/tvStartdate"
         android:layout_width="226dp"
         android:layout_height="38dp"
-        android:layout_marginTop="32dp"
-        android:text="Set Start Date"
+        android:layout_marginTop="108dp"
+        android:text="Set Start Date:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddAddress" />
 
@@ -71,11 +84,11 @@
         android:id="@+id/tvEnddate"
         android:layout_width="226dp"
         android:layout_height="38dp"
-        android:layout_marginTop="36dp"
-        android:text="Set End Date"
+        android:layout_marginTop="12dp"
+        android:text="Set End Date:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStartdate" />
 
@@ -83,11 +96,11 @@
         android:id="@+id/tvStarttime"
         android:layout_width="226dp"
         android:layout_height="38dp"
-        android:layout_marginTop="40dp"
-        android:text="Set Start Time"
+        android:layout_marginTop="24dp"
+        android:text="Set Start Time:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEnddate" />
 
@@ -95,11 +108,11 @@
         android:id="@+id/tvEndTime"
         android:layout_width="226dp"
         android:layout_height="38dp"
-        android:layout_marginTop="40dp"
-        android:text="Set Start Time"
+        android:layout_marginTop="20dp"
+        android:text="Set Finish Time:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStarttime" />
 

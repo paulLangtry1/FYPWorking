@@ -24,7 +24,6 @@ public class CurrentFeedback extends AppCompatActivity {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference dbRef = db.getReference();
     private DatabaseReference ref = db.getReference();
-    //private DatabaseReference first = dbRef.child("Avatar").child("imageUrl");
     private FirebaseUser user;
     private static final String Feedback = "Feedback";
     private String uid;
@@ -46,10 +45,10 @@ public class CurrentFeedback extends AppCompatActivity {
 
 
         tvCompanyName=findViewById(R.id.tvCompanyName);
-        tvPositionDisplay=findViewById(R.id.tvPositionDisplay);
+      //  tvPositionDisplay=findViewById(R.id.tvPositionDisplay);
         tvrating = findViewById(R.id.tvrating);
         tvpay = findViewById(R.id.tvpay);
-        tvdescription = findViewById(R.id.tvdescription);
+       // tvdescription = findViewById(R.id.tvdescription);
 
 
         //ref= FirebaseDatabase.getInstance().getReference(Feedback);
@@ -77,9 +76,9 @@ public class CurrentFeedback extends AppCompatActivity {
                     if (feedbackID.equals(fb.getFeedbackid()))
                     {
                         // tvCompanyName.setText(contract.get);
-                        tvPositionDisplay.setText(fb.getPosition());
+                       // tvPositionDisplay.setText(fb.getPosition());
                         tvCompanyName.setText(fb.getCompanyName());
-                        tvdescription.setText(fb.getDescription());
+                       // tvdescription.setText(fb.getDescription());
                         tvpay.setText(fb.getPay());
                         tvrating.setText(fb.getExperience());
 
