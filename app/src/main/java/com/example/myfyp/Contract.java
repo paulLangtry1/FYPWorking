@@ -64,9 +64,13 @@ public class Contract
         this.contractID=contractID;
         this.companyName = companyName;
         this.companyID = companyID;
+
     }
 
     String address;
+
+
+
 
     public String getCounty() {
         return county;

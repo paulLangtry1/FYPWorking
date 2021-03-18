@@ -40,18 +40,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class UserHomeActivity extends AppCompatActivity
 {
     private EditText etSearch;
     private Button btnlaunchmaps,btncalender;
-    private TextView tvWelcome,tvstatus;
+    private TextView tvWelcome,tvstatus,tvtodaysdate;
+    private static final String Contract = "ContractHistory";
     private FirebaseDatabase db;
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRef,dbhistory;
     private FirebaseUser user;
     private String status;
     private String uid;
     private String jobaccepted;
+    private Contract currentcontract;
     Boolean pending = false;
     Boolean verified = false;
     Boolean virginAccount = false;
@@ -60,8 +63,10 @@ public class UserHomeActivity extends AppCompatActivity
     ArrayList<Contract> allContracts = new ArrayList<Contract>();
     RecyclerView mRecyclerView;
     ActivejobAdapter myAdapter;
+    private String currentdate;
     private String address;
     private String county,startdate,enddate,starttime,endtime,useremail,title;
+    private Button locationlauncher;
 
 
 
@@ -75,9 +80,15 @@ public class UserHomeActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 
-        btnlaunchmaps = findViewById(R.id.btnlaunchmaps);
+        //buttons
         btncalender =findViewById(R.id.btncalender);
 
+
+
+        Date c = Calendar.getInstance().getTime();
+
+
+        dbhistory= FirebaseDatabase.getInstance().getReference(Contract);
 
 
 
@@ -85,6 +96,7 @@ public class UserHomeActivity extends AppCompatActivity
 
         tvWelcome = findViewById(R.id.tvWelcome);
         tvstatus = findViewById(R.id.tvPending);
+        tvtodaysdate = findViewById(R.id.tvTodaysDate);
 
 
         db = FirebaseDatabase.getInstance();
@@ -101,6 +113,12 @@ public class UserHomeActivity extends AppCompatActivity
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         myAdapter = new ActivejobAdapter(allContracts,this::onContractClick);
         mRecyclerView.setAdapter(myAdapter);
+
+        //todays date
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        currentdate = df.format(c);
+        tvtodaysdate.setText(currentdate);
 
 
 
@@ -134,49 +152,116 @@ public class UserHomeActivity extends AppCompatActivity
             }
         });
 
-        dbRef.child("ActiveContracts").addValueEventListener(new ValueEventListener() {
+        dbRef.child("ActiveContracts").addValueEventListener(new ValueEventListener()
+        {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> children = snapshot.getChildren();
                 for (DataSnapshot child : children)
                 {
                     Contract contract = child.getValue(Contract.class);
-                    if(contract.getUserID().equals(uid))
-                    {
+                    if(contract.getUserID().equals(uid)) {
                         address = contract.getAddress();
-                        county =contract.getCounty();
+                        county = contract.getCounty();
                         startdate = contract.getStartdate();
                         enddate = contract.getEnddate();
                         starttime = contract.getStarttime();
                         endtime = contract.getEndtime();
                         title = contract.getPosition();
 
-                        //  if (contract.getUID().equals(uid)) {
+                        String contractid = contract.getContractID();
+
+                        //contracts ending date
+                        String contractenddate = contract.getEnddate();
+                        String[] parts = contractenddate.split("/");
+                        int endday = Integer.parseInt(parts[0]);
+                        int endmonth = Integer.parseInt(parts[1]);
+
+                        //current date
+                        String[] parts2 = currentdate.split("/");
+                        int currday = Integer.parseInt(parts2[0]);
+                        int currmon = Integer.parseInt(parts2[1]);
                         allContracts.add(contract);
 
                         myAdapter.notifyItemInserted(allContracts.size() - 1);
+
+
+                        if (currday<=endday && currmon<=endmonth)
+                        {
+
+                        }
+                        else {
+
+
+                            dbRef.child("ActiveContracts").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Iterable<DataSnapshot> children = snapshot.getChildren();
+                                    for (DataSnapshot child : children)
+                                    {
+                                        Contract contract = child.getValue(Contract.class);
+                                        if(contract.getUserID().equals(uid))
+                                        {
+                                            String position = contract.getPosition();
+                                            String address = contract.getAddress();
+                                            String enddate = contract.getEnddate();
+                                            String startdate = contract.getStartdate();
+                                            String endtime = contract.getEndtime();
+                                            String starttime = contract.getStarttime();
+                                            String userID = uid;
+                                            String county = contract.getCounty();
+                                            String contractID = contract.getContractID();
+                                            String companyName = contract.getCompanyName();
+                                            String companyID = contract.getCompanyID();
+
+
+
+
+                                            String keyid =  dbhistory.push().getKey();
+
+
+                                            Contract contracthistory = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                            dbhistory.child(keyid).setValue(contracthistory);
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    //   Log.m("DBE Error","Cancel Access DB");
+                                }
+                            });
+
+
+
+                            dbRef.child("ActiveContracts").removeValue();
+                        }
+
+
                     }
+
+
+
+
 
                 }
             }
 
-            @Override
+
+
+
+
+           @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 //   Log.m("DBE Error","Cancel Access DB");
             }
         });
 
-        btnlaunchmaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(UserHomeActivity.this,MapsSiteLocation.class);
-                intent.putExtra( "address", address);
-                intent.putExtra( "county", county);
-                startActivity(intent);
 
-            }
-        });
+
+
+
 
 
 
@@ -192,6 +277,7 @@ public class UserHomeActivity extends AppCompatActivity
                         useremail = currentuser.getEmail();
                         tvWelcome.setText("Welcome " + currentName + "!");
                         tvstatus.setText(currentuser.getStatus());
+
 
                     }
                 }
@@ -214,7 +300,6 @@ public class UserHomeActivity extends AppCompatActivity
                 Calendar begincal = Calendar.getInstance();
                 Calendar endcal = Calendar.getInstance();
                 Date enDate = new Date();
-
                 String[] startTime = starttime.split(":");
                 String hour = startTime[0];
                 String min = startTime[1];
@@ -412,8 +497,13 @@ public class UserHomeActivity extends AppCompatActivity
     public void onContractClick(int position)
     {
         allContracts.get(position);
-        Intent intent = new Intent(UserHomeActivity.this,CurrentContract.class);
-        intent.putExtra( "Position", position);
+
+
+
+        Intent intent = new Intent(UserHomeActivity.this,MapsSiteLocation.class);
+        intent.putExtra( "address", address);
+        intent.putExtra( "county", county);
+        startActivity(intent);
         //startActivity(intent);
     }
 }

@@ -141,6 +141,7 @@ public class MapsSiteLocation extends FragmentActivity implements OnMapReadyCall
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        county = getIntent().getExtras().getString("county");
 
 
         mSearchText = (EditText) findViewById(R.id.input_search);
@@ -273,6 +274,8 @@ public class MapsSiteLocation extends FragmentActivity implements OnMapReadyCall
                     .position(latLng)
                     .title(title);
             mMap.addMarker(options);
+
+
         }
 
         hideSoftKeyboard();
@@ -388,25 +391,37 @@ public class MapsSiteLocation extends FragmentActivity implements OnMapReadyCall
         try {
             JSONObject geoJsonobject = new JSONObject(result);//convert string to JSON Object
             JSONArray jsonArray =  geoJsonobject.getJSONArray("features");
-            //String countyname = geoJsonobject.getString("CountyName");
+
+
             for(int i =0; i < jsonArray.length(); i++)
             {
                 JSONObject children = jsonArray.getJSONObject(i);
                 String countyname = children.getJSONObject("properties").getString("CountyName");
 
-                if(countyname.equals("Cavan"))
+                if(countyname.equals(county))
                 {
-                   // layer = new GeoJsonLayer(mMap,geoJsonobject);
-                    //layer.addLayerToMap();
+
                     double longitude = children.getJSONObject("properties").getDouble("Long");
                     double lat = children.getJSONObject("properties").getDouble("Lat");
+                    String covidcases = children.getJSONObject("properties").getString("ConfirmedCovidCases");
+                    String timestamp = children.getJSONObject("properties").getString("TimeStampDate");
+
+
+
 
                     LatLng latLng = new LatLng(lat, longitude);
 
                     MarkerOptions options = new MarkerOptions()
                             .position(latLng)
-                            .title("Cavan");
-                    mMap.addMarker(options);
+                            .title(county+"" +
+                                    " Confirmed Covid Cases: " + covidcases);
+                    mMap.addMarker(options.snippet(" Last Updated: " + timestamp));
+
+
+
+
+
+
 
                     moveCamera(latLng,
                             DEFAULT_ZOOM,
@@ -431,7 +446,7 @@ public class MapsSiteLocation extends FragmentActivity implements OnMapReadyCall
     public LatLng getLocationFromAddress()
     {
         address = getIntent().getExtras().getString("address");
-        //county = getIntent().getExtras().getString("county");
+
 
 
         Geocoder coder = new Geocoder(MapsSiteLocation.this);

@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGreetingCompReg"
-        app:layout_constraintVertical_bias="0.205" />
+        app:layout_constraintVertical_bias="0.18" />
 
     <EditText
         android:id="@+id/etRegCompName"
@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompEmail"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <EditText
         android:id="@+id/etcompanyaddress"
@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompEmail"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintVertical_bias="0.22" />
 
     <EditText
         android:id="@+id/etcompanyPhoneno"
@@ -71,7 +71,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompEmail"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.383" />
 
     <EditText
         android:id="@+id/etRegCompPW"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompName"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <EditText
         android:id="@+id/etRegCompConfirmPW"
@@ -99,16 +99,27 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompPW"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.183" />
 
     <Button
         android:id="@+id/btnRegCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRegCompConfirmPW"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.524" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="210dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

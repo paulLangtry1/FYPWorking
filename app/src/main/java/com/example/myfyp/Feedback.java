@@ -5,6 +5,16 @@ public class Feedback
     String experience;
     String pay;
 
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    String sector;
+
     public Feedback() {
 
     }
@@ -81,7 +91,7 @@ public class Feedback
         this.description = description;
     }
 
-    public Feedback(String experience, String pay,String description, String useruid,String companyName,String position,String feedbackid,String companyID)
+    public Feedback(String experience, String pay,String description, String useruid,String companyName,String position,String feedbackid,String companyID,String sector)
     {
         this.experience = experience;
         this.pay = pay;
@@ -91,6 +101,7 @@ public class Feedback
         this.position = position;
         this.feedbackid = feedbackid;
         this.companyID = companyID;
+        this.sector = sector;
 
     }
 

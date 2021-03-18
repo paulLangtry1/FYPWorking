@@ -25,10 +25,11 @@
         android:text="Job Details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvviewupdate"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.103" />
+
 
     <TextView
         android:id="@+id/textView4"
@@ -40,12 +41,12 @@
         app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvdetails"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintVertical_bias="0.069" />
 
     <TextView
         android:id="@+id/tvCompanyName"
-        android:layout_width="106dp"
-        android:layout_height="24dp"
+        android:layout_width="116dp"
+        android:layout_height="37dp"
         android:layout_marginStart="76dp"
         android:layout_marginLeft="76dp"
         android:layout_marginTop="32dp"
@@ -54,8 +55,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/tvdetails"
-        app:layout_constraintVertical_bias="0.007" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvPosition"
@@ -64,21 +64,21 @@
         android:text="Position:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.065" />
+        app:layout_constraintVertical_bias="0.064" />
 
     <TextView
         android:id="@+id/tvPositionDisplay"
-        android:layout_width="106dp"
-        android:layout_height="25dp"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toEndOf="@+id/tvPosition"
         app:layout_constraintTop_toBottomOf="@+id/tvCompanyName"
-        app:layout_constraintVertical_bias="0.054" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <TextView
         android:id="@+id/tvdispplayrating"
@@ -87,48 +87,48 @@
         android:text="Rate Your Experience"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPositionDisplay"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.085" />
 
-    <EditText
-        android:id="@+id/etPay"
+    <TextView
+        android:id="@+id/tvdispplayrating3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:ems="10"
-        android:hint="Pay:"
-        android:inputType="textPersonName"
+        android:text="Rate Your Pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etDescribe"
-        android:layout_width="343dp"
-        android:layout_height="112dp"
-        android:ems="10"
-        android:hint="Describe:"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPositionDisplay"
+        app:layout_constraintVertical_bias="0.375" />
+
+    <TextView
+        android:id="@+id/tvdispplayrating4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Work-Life Balance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPositionDisplay"
+        app:layout_constraintVertical_bias="0.622" />
 
     <Button
         android:id="@+id/btnSaveChanges"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Changes"
+        android:layout_width="101dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="16dp"
+        android:text="Submit"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorLink="#FFFFFF"
+        app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPay"
-        app:layout_constraintVertical_bias="0.734" />
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/companyprofilepic"
@@ -136,17 +136,38 @@
         android:layout_height="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.056" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/rateExperience"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvdispplayrating" />
+
+    <RatingBar
+        android:id="@+id/ratePay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateExperience" />
+
+    <RatingBar
+        android:id="@+id/rateWorklife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratePay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

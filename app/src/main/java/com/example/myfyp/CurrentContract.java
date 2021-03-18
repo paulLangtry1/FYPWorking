@@ -35,8 +35,10 @@ public class CurrentContract extends AppCompatActivity {
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String contractuid;
+    private String address,county;
     private String userid;
     private Contract currentcontract;
+    private Button btncontractlocation;
 
 
     @Override
@@ -58,6 +60,7 @@ public class CurrentContract extends AppCompatActivity {
         btnyes = findViewById(R.id.btnYes);
         btnno = findViewById(R.id.btnNo);
         display = findViewById(R.id.tvDisplayAccept);
+        btncontractlocation = findViewById(R.id.btnviewlocation);
 
         ref.child("Contract").addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,6 +75,8 @@ public class CurrentContract extends AppCompatActivity {
                             //allContractsUser.add(contract);
                             currentcontract = child.getValue(Contract.class);
                             String positionName = contract.getPosition();
+                            address = contract.getAddress();
+                            county = contract.getCounty();
                             display.setText("Would you like to apply for position: " + positionName);
 
 
@@ -89,6 +94,19 @@ public class CurrentContract extends AppCompatActivity {
             }
 
 
+        });
+
+        btncontractlocation.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(CurrentContract.this,MapsSiteLocation.class);
+                intent.putExtra( "address", address);
+                intent.putExtra( "county", county);
+                startActivity(intent);
+
+            }
         });
 
 
@@ -124,11 +142,12 @@ public class CurrentContract extends AppCompatActivity {
                                    String companyName = contract.getCompanyName();
                                    String companyID = contract.getCompanyID();
 
+
                                    String keyid =  dbRef.push().getKey();
 
 
-                                   Contract contracthistory = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
-                                   dbRef.child(keyid).setValue(contracthistory);
+                                  // Contract contracthistory = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                  // dbRef.child(keyid).setValue(contracthistory);
 
                                    Contract contractconsideration = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
                                    dbrefAcceptance.child(keyid).setValue(contractconsideration);

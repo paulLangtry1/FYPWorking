@@ -32,7 +32,9 @@ public class CompanyHomeActivity extends AppCompatActivity
     ArrayList<Contract> allContracts = new ArrayList<Contract>();
     RecyclerView mRecyclerView;
     ActivejobAdapter myAdapter;
+    private boolean isAdmin = false;
 
+    private String status;
 
     private TextView tvWelcome;
     private FirebaseDatabase db;
@@ -63,6 +65,26 @@ public class CompanyHomeActivity extends AppCompatActivity
         myAdapter = new ActivejobAdapter(allContracts,this::onContractClick);
         mRecyclerView.setAdapter(myAdapter);
 
+        /*
+        dbRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                status = dataSnapshot.child("Company").child(uid).child("isAdmin").getValue(String.class);
+                if(status.equals("Yes"))
+                {
+                    isAdmin = true;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+         */
+
+
         dbRef.child("Company").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,10 +113,12 @@ public class CompanyHomeActivity extends AppCompatActivity
                 Iterable<DataSnapshot> children = snapshot.getChildren();
                 for (DataSnapshot child : children) {
                     Contract contract = child.getValue(Contract.class);
-                    //  if (contract.getUID().equals(uid)) {
+                    if (contract.getCompanyID().equals(uid))
+                    {
                     allContracts.add(contract);
 
                     myAdapter.notifyItemInserted(allContracts.size() - 1);
+                 }
                 }
             }
 
@@ -116,6 +140,24 @@ public class CompanyHomeActivity extends AppCompatActivity
         inflater.inflate(R.menu.company_menu, menu);
         return true;
     }
+    /*
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu)
+    {
+        if (isAdmin==false)
+        {
+            //menu.getItem(1).setEnabled(false);
+            menu.getItem(6).setEnabled(false);
+            //menu.getItem(2).setEnabled(false);
+            //menu.getItem(4).setEnabled(false);
+            // You can also use something like:
+            // menu.findItem(R.id.example_foobar).setEnabled(false);
+        }
+
+        return true;
+    }
+
+     */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

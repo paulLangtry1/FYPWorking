@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CompanyRegister extends AppCompatActivity
+public class CompanyRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     private EditText etRegCompEmail,etRegCompName,etRegCompPW,etRegCompConfirmPW,etAddress,etPhone;
     private Button btnRegCompany;
@@ -29,6 +33,10 @@ public class CompanyRegister extends AppCompatActivity
     private static final String COMPANY = "Company";
     private static final String TAG = "CompanyRegister";
     private Company company;
+    private TextView greeting;
+    private String selected;
+    private Spinner spinner;
+    private static final String[] paths = {"Construction", "Demolition", "Farming","Manufacturing","Other"};
 
 
     @Override
@@ -43,6 +51,16 @@ public class CompanyRegister extends AppCompatActivity
         btnRegCompany = findViewById(R.id.btnRegCompany);
         etAddress = findViewById(R.id.etcompanyaddress);
         etPhone = findViewById(R.id.etcompanyPhoneno);
+        spinner = findViewById(R.id.spinner);
+
+        greeting = findViewById(R.id.tvGreetingCompany);
+
+        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item,paths);
+
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinner.setAdapter(ad);
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(COMPANY);
@@ -60,6 +78,8 @@ public class CompanyRegister extends AppCompatActivity
                 String ppurl = "Not Uploaded";
                 String address = etAddress.getText().toString();
                 String phoneNo= etPhone.getText().toString();
+                String isadmin = "No";
+                String sector = String.valueOf(spinner.getSelectedItem());
 
                 if(companyemail.isEmpty() || companyname.isEmpty() || password.isEmpty() || confirmpw.isEmpty())
                 {
@@ -68,7 +88,7 @@ public class CompanyRegister extends AppCompatActivity
                 }
                 if (password.equals(confirmpw) && password.length()>=6)
                 {
-                    company = new Company(companyemail,password,companyname,ppurl,address,phoneNo);
+                    company = new Company(companyemail,password,companyname,ppurl,address,phoneNo,isadmin,sector);
                     registerUser(companyemail,password);
                 }
                 else
@@ -116,4 +136,16 @@ public class CompanyRegister extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        selected = parent.getItemAtPosition(position).toString();
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

@@ -21,8 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class User_Feedback extends AppCompatActivity {
 
 
@@ -43,7 +41,7 @@ public class User_Feedback extends AppCompatActivity {
     private Button btnSaveChanges;
     private ImageView imageView;
     private String adminuid,useruid;
-    private RatingBar ratingBar;
+    private RatingBar rateExperience,ratePay,rateWorklife;
 
 
     @Override
@@ -60,10 +58,9 @@ public class User_Feedback extends AppCompatActivity {
         ref= FirebaseDatabase.getInstance().getReference(Feedback);
         collective = FirebaseDatabase.getInstance().getReference(collectiveFeedback);
 
-        //etExperience = findViewById(R.id.etExperience);
-        ratingBar = findViewById(R.id.ratingBar);
-        etPay = findViewById(R.id.etPay);
-        etDescribe = findViewById(R.id.etDescribe);
+        rateExperience = findViewById(R.id.rateExperience);
+        ratePay = findViewById(R.id.ratePay);
+        rateWorklife = findViewById(R.id.rateWorklife);
 
 
         contractid = getIntent().getExtras().getString("contractID");
@@ -122,17 +119,21 @@ public class User_Feedback extends AppCompatActivity {
                             {
                                 // tvCompanyName.setText(contract.get);
 
-                                String experience = String.valueOf(ratingBar.getRating());
-                                String pay = etPay.getText().toString();
-                                String description = etDescribe.getText().toString();
+                                String experience = String.valueOf(rateExperience.getRating());
+                                String pay = String.valueOf(ratePay.getRating());
+                                String description = String.valueOf(rateWorklife.getRating());
                                 String userid = uid;
                                 String companyName = contract.getCompanyName();
                                 String position = contract.getPosition();
                                 String feedbackid = dbRef.push().getKey();
                                 String companyID = contract.getCompanyID();
+                                String sector = "";
 
-                                Feedback feedback = new Feedback(experience,pay,description,userid,companyName,position,feedbackid,companyID);
+                                Feedback feedback = new Feedback(experience,pay,description,userid,companyName,position,feedbackid,companyID,sector);
                                 ref.child(feedbackid).setValue(feedback);
+
+
+                                
 
                                 dbRef.child("CollectiveFeedback").addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -149,8 +150,11 @@ public class User_Feedback extends AppCompatActivity {
                                             }
                                             else
                                             {
-                                                Feedback feedback1 = new Feedback(experience,pay,description,userid,companyName,position,feedbackid,companyID);
+
+
+                                                Feedback feedback1 = new Feedback(experience,pay,description,userid,companyName,position,feedbackid,companyID,sector);
                                                 collective.child(feedbackid).setValue(feedback1);
+
                                             }
                                         }
                                     }

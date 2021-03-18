@@ -29,7 +29,10 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
 {
 
     ArrayList<Feedback> allFeedback = new ArrayList<Feedback>();
+
     private float experienceavg;
+    private float payavg;
+    private float worklifeavg;
 
     private FirebaseDatabase database;
     private DatabaseReference ref;
@@ -39,6 +42,8 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
     private String uid;
     private TextView tv;
     private ArrayList<Float> experienceList = new ArrayList<Float>();
+    private ArrayList<Float> payList = new ArrayList<Float>();
+    private ArrayList<Float> worklifeList = new ArrayList<Float>();
     private String currentcompany;
     private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
@@ -110,7 +115,12 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
                     {
                         currentcompany = feedback.getCompanyName();
                         Float experience = Float.valueOf(feedback.getExperience());
+                        Float pay = Float.valueOf(feedback.getPay());
+                        Float worklife = Float.valueOf(feedback.getDescription());
+
                         experienceList.add(experience);
+                        payList.add(pay);
+                        worklifeList.add(worklife);
 
 
 
@@ -126,6 +136,8 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
 
 
         avererageExperience();
+        avereragePay();
+        avererageworklife();
 
 
         displayAlert();
@@ -153,11 +165,43 @@ public class allReviews extends AppCompatActivity implements FeedbackAdapter.OnC
 
 
     }
+    private void avereragePay()
+    {
+        float total = 0;
+        float average;
+        for(int i = 0; i<payList.size(); i++)
+        {
+            float currentNo = payList.get(i);
+            total = currentNo + total;
+            average = total / payList.size();
+            payavg = average;
+
+        }
+
+
+
+    }
+    private void avererageworklife()
+    {
+        float total = 0;
+        float average;
+        for(int i = 0; i<worklifeList.size(); i++)
+        {
+            float currentNo = worklifeList.get(i);
+            total = currentNo + total;
+            average = total / worklifeList.size();
+            worklifeavg = average;
+
+        }
+
+
+
+    }
     private void displayAlert()
     {
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(allReviews.this);
-        builder1.setMessage("Company Selected: " + currentcompany + "\n" + "User Average Experience: " +  decimalFormat.format(experienceavg) + " Stars" );
+        builder1.setMessage("Company Selected: " + currentcompany + "\n" + "User Average Experience: " +  decimalFormat.format(experienceavg) + " Stars"+ "\n" + "User Average Pay: " +  decimalFormat.format(payavg) + " Stars" + "\n" + "User Average Work-Life: " +  decimalFormat.format(worklifeavg) + " Stars");
         builder1.setCancelable(true);
 
         AlertDialog alert11 = builder1.create();

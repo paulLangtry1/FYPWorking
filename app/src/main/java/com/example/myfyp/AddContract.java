@@ -133,6 +133,7 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
                                 String county = etaddCounty.getText().toString();
                                 String userID = "";
                                 String companyName = currentName;
+                                String sector = "";
 
 
                                 Toast.makeText(AddContract.this,"Contract Created",Toast.LENGTH_SHORT).show();
