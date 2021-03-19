@@ -181,14 +181,14 @@ public class UserHomeActivity extends AppCompatActivity
                         String[] parts2 = currentdate.split("/");
                         int currday = Integer.parseInt(parts2[0]);
                         int currmon = Integer.parseInt(parts2[1]);
-                        allContracts.add(contract);
 
-                        myAdapter.notifyItemInserted(allContracts.size() - 1);
 
 
                         if (currday<=endday && currmon<=endmonth)
                         {
+                            allContracts.add(contract);
 
+                            myAdapter.notifyItemInserted(allContracts.size() - 1);
                         }
                         else {
 
@@ -235,7 +235,7 @@ public class UserHomeActivity extends AppCompatActivity
 
 
 
-                            dbRef.child("ActiveContracts").removeValue();
+                            dbRef.child("ActiveContracts").child(contractid).removeValue();
                         }
 
 
@@ -441,6 +441,7 @@ public class UserHomeActivity extends AppCompatActivity
     {
 
         Intent intent = new Intent(UserHomeActivity.this, UserViewContracts.class);
+        intent.putExtra( "enddate", enddate);
         startActivity(intent);
 
 
@@ -497,12 +498,15 @@ public class UserHomeActivity extends AppCompatActivity
     public void onContractClick(int position)
     {
         allContracts.get(position);
+        String currentaddress = allContracts.get(position).getAddress();
+        String currentcounty = allContracts.get(position).getCounty();
+
 
 
 
         Intent intent = new Intent(UserHomeActivity.this,MapsSiteLocation.class);
-        intent.putExtra( "address", address);
-        intent.putExtra( "county", county);
+        intent.putExtra( "address", currentaddress);
+        intent.putExtra( "county", currentcounty);
         startActivity(intent);
         //startActivity(intent);
     }

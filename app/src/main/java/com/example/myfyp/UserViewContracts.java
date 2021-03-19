@@ -29,6 +29,7 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String uid;
+    private String enddate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +41,8 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
         uid = user.getUid();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        enddate = getIntent().getExtras().getString("enddate");
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
@@ -76,9 +79,59 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
     {
         allContractsUser.get(position);
         String contractID = allContractsUser.get(position).getContractID();
+        String startdate = allContractsUser.get(position).getStartdate();
 
-        Intent intent = new Intent(UserViewContracts.this,CurrentContract.class);
-        intent.putExtra( "Value", contractID);
-        startActivity(intent);
+        //current contracts starting date
+
+        String[] parts = startdate.split("/");
+        int startday = Integer.parseInt(parts[0]);
+        int startmonth = Integer.parseInt(parts[1]);
+
+        //active contract end date
+        String[] parts2 = enddate.split("/");
+        int endday = Integer.parseInt(parts2[0]);
+        int endmon = Integer.parseInt(parts2[1]);
+        if(enddate==null)
+        {
+            Intent intent = new Intent(UserViewContracts.this,CurrentContract.class);
+            intent.putExtra( "Value", contractID);
+            startActivity(intent);
+        }
+        else
+        {
+            if(startmonth>=endmon)
+            {
+                if(startmonth==endmon)
+                {
+                    if(endday>startday)
+                    {
+
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(UserViewContracts.this,CurrentContract.class);
+                        intent.putExtra( "Value", contractID);
+                        startActivity(intent);
+                    }
+
+                }
+                else
+                {
+                    Intent intent = new Intent(UserViewContracts.this,CurrentContract.class);
+                    intent.putExtra( "Value", contractID);
+                    startActivity(intent);
+                }
+
+
+            }
+            else
+            {
+
+            }
+
+        }
+
+
+
     }
 }

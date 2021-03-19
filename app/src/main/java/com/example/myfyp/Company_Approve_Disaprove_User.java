@@ -261,13 +261,13 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                                     String endtime = contract.getEndtime();
                                     String starttime = contract.getStarttime();
                                     String userID = contract.getUserID();
-                                    String contractID = contract.getContractID();
+
                                     String companyName = contract.getCompanyName();
                                     String companyID = contract.getCompanyID();
 
 
                                     String keyid =  dbRef.push().getKey();
-
+                                    String contractID = keyid;
 
                                     Contract activecontracts = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
                                     dbrefactivecontracts.child(keyid).setValue(activecontracts);
