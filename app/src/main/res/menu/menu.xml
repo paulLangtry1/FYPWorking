@@ -2,19 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/item1"
-        android:icon="@drawable/ic_icon"
-        android:title="Add"
+        android:icon="@drawable/home"
+        android:title="Home"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/item2"
         android:title="View Contract Marketplace"
-        app:showAsAction="never"/>
+        android:icon="@drawable/marketplace"
+        app:showAsAction="ifRoom"/>
     <item android:id="@+id/item3"
         android:title="Get Verified"
         app:showAsAction="never"/>
     <item android:id="@+id/item4"
         android:title="Edit Profile"
-        app:showAsAction="never"/>
+        android:icon="@drawable/edit_profile"
+        app:showAsAction="ifRoom|withText"/>
     <item android:id="@+id/item5"
         android:title="View/Rate Previous Jobs"
         app:showAsAction="never"/>
@@ -23,10 +25,12 @@
         app:showAsAction="never"/>
     <item android:id="@+id/item7"
         android:title="View Chat Forum"
-        app:showAsAction="never"/>
+        android:icon="@drawable/chat_forum"
+        app:showAsAction="ifRoom"/>
     <item android:id="@+id/item8"
         android:title="Maps"
-        app:showAsAction="never"/>
+        android:icon="@drawable/maps"
+        app:showAsAction="ifRoom"/>
 
 
 </menu>

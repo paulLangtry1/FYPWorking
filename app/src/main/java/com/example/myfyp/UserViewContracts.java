@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,6 +76,82 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            case R.id.item4:
+                editProfile();
+                return true;
+            case R.id.item7:
+                chatForum();
+                return true;
+            case R.id.item8:
+                maps();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(UserViewContracts.this, UserViewContracts.class);
+       // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(UserViewContracts.this, UserHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+    public void editProfile()
+    {
+
+        Intent intent = new Intent(UserViewContracts.this, Edit_profile.class);
+        startActivity(intent);
+
+
+    }
+
+    public void chatForum()
+    {
+
+        Intent intent = new Intent(UserViewContracts.this, chatForum.class);
+        startActivity(intent);
+
+
+    }
+    public void maps()
+    {
+
+        Intent intent = new Intent(UserViewContracts.this, MapsActivity.class);
+        startActivity(intent);
+
+
+    }
+
 
     @Override
     public void onContractClick(int position)

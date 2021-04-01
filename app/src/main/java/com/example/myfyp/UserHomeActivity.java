@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +46,8 @@ import java.util.Locale;
 public class UserHomeActivity extends AppCompatActivity
 {
     private EditText etSearch;
-    private Button btnlaunchmaps,btncalender;
+    private Button btncalender;
+    private ImageView btnchatroom,btneditprofile,btnratejob; //btns are imageviews
     private TextView tvWelcome,tvstatus,tvtodaysdate;
     private static final String Contract = "ContractHistory";
     private FirebaseDatabase db;
@@ -98,6 +100,12 @@ public class UserHomeActivity extends AppCompatActivity
         tvstatus = findViewById(R.id.tvPending);
         tvtodaysdate = findViewById(R.id.tvTodaysDate);
 
+        //ui buttons
+        btnchatroom = findViewById(R.id.btnchatroomui);
+        btneditprofile = findViewById(R.id.btneditprofileui);
+        btnratejob = findViewById(R.id.btnratejobnui);
+
+
 
         db = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -119,6 +127,8 @@ public class UserHomeActivity extends AppCompatActivity
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         currentdate = df.format(c);
         tvtodaysdate.setText(currentdate);
+
+
 
 
 
@@ -355,6 +365,32 @@ public class UserHomeActivity extends AppCompatActivity
             }
         });
 
+        btnratejob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserHomeActivity.this, UserContractHistory.class);
+                startActivity(intent);
+            }
+        });
+
+        btneditprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(UserHomeActivity.this, Edit_profile.class);
+                startActivity(intent);
+
+            }
+        });
+        btnchatroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserHomeActivity.this, chatForum.class);
+                startActivity(intent);
+
+            }
+        });
+
 /*
 
  */
@@ -417,16 +453,16 @@ public class UserHomeActivity extends AppCompatActivity
                 verify();
                 return true;
             case R.id.item4:
-                editProfile();
+                //editProfile();
                 return true;
             case R.id.item5:
-                jobHistory();
+               // jobHistory();
                 return true;
             case R.id.item6:
                 allReviews();
                 return true;
             case R.id.item7:
-                chatForum();
+               // chatForum();
                 return true;
             case R.id.item8:
                 maps();
@@ -463,30 +499,9 @@ public class UserHomeActivity extends AppCompatActivity
 
 
     }
-    public void editProfile()
-    {
-
-        Intent intent = new Intent(UserHomeActivity.this, Edit_profile.class);
-        startActivity(intent);
 
 
-    }
-    public void jobHistory()
-    {
 
-        Intent intent = new Intent(UserHomeActivity.this, UserContractHistory.class);
-        startActivity(intent);
-
-
-    }
-    public void chatForum()
-    {
-
-        Intent intent = new Intent(UserHomeActivity.this, chatForum.class);
-        startActivity(intent);
-
-
-    }
     public void maps()
     {
 
