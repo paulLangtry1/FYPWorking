@@ -92,7 +92,7 @@ public class chatForum extends AppCompatActivity implements CommentAdapter.OnCon
             @Override
             public void onClick(View v)
             {
-                ref.child("user").addValueEventListener(new ValueEventListener() {
+                ref.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot> children = snapshot.getChildren();
@@ -114,6 +114,7 @@ public class chatForum extends AppCompatActivity implements CommentAdapter.OnCon
                                 dbRef.child(commentId).setValue(comment);
 
                                 etAddcontent.setText("");
+
 
                                 //String keyId = dbRef.push().getKey();
                                 //dbRef.child(keyId).setValue(contract);

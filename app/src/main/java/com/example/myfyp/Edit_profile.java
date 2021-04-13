@@ -101,8 +101,8 @@ public class Edit_profile extends AppCompatActivity {
                         String currentName = currentUser.getUsername();
                         String currentNumber = currentUser.getPhoneNo();
                         String link = currentUser.getPpurl();
-                        tvName.setText(currentName);
-                        tvNumber.setText(currentNumber);
+                        etChangeName.setHint(currentName);
+                        etChangeNumber.setHint(currentNumber);
 
 
 

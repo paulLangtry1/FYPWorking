@@ -19,7 +19,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     //Inner class - Provide a reference to each item/row
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtView;
+        public TextView txtView,txtView2,txtviewcontent;
 
         //public Button btnAcceptContract;
         CommentAdapter.OnContractListener onContractListener;
@@ -27,6 +27,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         public MyViewHolder(View itemView, CommentAdapter.OnContractListener onContractListener){
             super(itemView);
             txtView= itemView.findViewById(R.id.textView);
+            txtView2= itemView.findViewById(R.id.textView2);
+            txtviewcontent= itemView.findViewById(R.id.textViewcontent);
 
             this.onContractListener = onContractListener;
 
@@ -61,7 +63,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public CommentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         //create new view - create a row - inflate the layout for the row
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.row_layout,parent,false);
+        View itemView =inflater.inflate(R.layout.chat_layout,parent,false);
         MyViewHolder viewHolder=new MyViewHolder(itemView, monContractListener);
         return viewHolder;
     }
@@ -70,7 +72,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
         final Comment comment=commentfromdb.get(position);
-        holder.txtView.setText("Name :"+ comment.getName()+"\n" +"\n" + "Date/Time :"+ comment.getDatetime()+ "\n" +  "\n" + "Content :"+ comment.getContent());
+        holder.txtView.setText(" "+ comment.getName());
+        holder.txtviewcontent.setText("\n" +"\n" + " "+ comment.getContent());
+        holder.txtView2.setText(" "+ comment.getDatetime());
+
+
 
     }
 

@@ -246,6 +246,7 @@ public class UserHomeActivity extends AppCompatActivity
 
 
                             dbRef.child("ActiveContracts").child(contractid).removeValue();
+                            myAdapter.notifyDataSetChanged();
                         }
 
 
