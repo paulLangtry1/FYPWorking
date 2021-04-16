@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/purple_200"
     android:layout_height="match_parent"
-    tools:context=".User_Feedback">
+    tools:context=".Company_rate_employee">
 
     <TextView
         android:id="@+id/tvviewupdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Feedback For Company"
+        android:text="Feedback For User"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,7 +25,9 @@
         android:id="@+id/tvdetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Job Details"
+        android:text="Employee Details"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.604"
@@ -36,12 +41,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name :"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvdetails"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.086" />
 
     <TextView
         android:id="@+id/tvCompanyName"
@@ -50,41 +57,47 @@
         android:layout_marginStart="76dp"
         android:layout_marginLeft="76dp"
         android:layout_marginTop="32dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/tvdetails"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
         android:id="@+id/tvPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Position:"
+        android:text="Email:"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintVertical_bias="0.075" />
 
     <TextView
         android:id="@+id/tvPositionDisplay"
         android:layout_width="114dp"
         android:layout_height="50dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toEndOf="@+id/tvPosition"
         app:layout_constraintTop_toBottomOf="@+id/tvCompanyName"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.029" />
 
     <TextView
         android:id="@+id/tvdispplayrating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rate Your Experience"
+        android:text="Overall Rating"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.474"
@@ -96,7 +109,9 @@
         android:id="@+id/tvdispplayrating3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rate Your Pay"
+        android:text="Punctuality"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
@@ -108,7 +123,9 @@
         android:id="@+id/tvdispplayrating4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rate Work-Life Balance"
+        android:text="Communication Skills"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"

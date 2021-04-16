@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Edit_profile extends AppCompatActivity {
 
@@ -51,9 +53,13 @@ public class Edit_profile extends AppCompatActivity {
     private User currentUser;
     private TextView tvName,tvNumber;
     private EditText etChangeName,etChangeNumber;
-    private Button btnSaveChanges;
+    private Button btnSaveChanges,btnenlarge;
     private ImageView imageView,reference;
     private String picPath;
+    private ArrayList<Float> overallratingList = new ArrayList<Float>();
+    private Float overallaverage;
+    private RatingBar ratingbar;
+
     DatabaseReference c1v2;
 
     @Override
@@ -68,12 +74,15 @@ public class Edit_profile extends AppCompatActivity {
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         etChangeName = findViewById(R.id.etChnageName);
         etChangeNumber = findViewById(R.id.etChangeNumber);
-        imageView = findViewById(R.id.companyprofilepic);
+        imageView = findViewById(R.id.userprofilepic);
+        ratingbar = findViewById(R.id.ratingBarUser);
         reference = findViewById(R.id.imgreference);
+        btnenlarge = findViewById(R.id.btnenlarge);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         profilepic = storage.getReference();
+
 
 
 
@@ -87,6 +96,8 @@ public class Edit_profile extends AppCompatActivity {
         uid=user.getUid();
 
         String currentuid = uid;
+
+        gettingaverage();
 
 
 
@@ -109,6 +120,7 @@ public class Edit_profile extends AppCompatActivity {
 
 
 
+
                     }
                 }
             }
@@ -118,6 +130,7 @@ public class Edit_profile extends AppCompatActivity {
 
             }
         });
+
         try
         {
             profilepic = storage.getReferenceFromUrl("gs://fypapp-8ebb3.appspot.com/images/profilepic" + currentuid);
@@ -187,6 +200,17 @@ public class Edit_profile extends AppCompatActivity {
             public void onClick(View v)
             {
                 choosePictureref();
+            }
+        });
+
+        btnenlarge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(Edit_profile.this, EnlargedReference.class);
+                startActivity(intent);
+
+
             }
         });
 
@@ -371,6 +395,58 @@ public class Edit_profile extends AppCompatActivity {
 
     }
     public void loadpp() {
+
+    }
+    private void gettingaverage()
+    {
+        dbRef.child("EmployeeFeedback").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child : children) {
+                    EmployeeFeedback feedback = child.getValue(EmployeeFeedback.class);
+                    if (feedback.getEmployeeid().equals(uid))
+                    {
+
+                        Float overall = Float.valueOf(feedback.getOverallrating());
+
+                        overallratingList.add(overall);
+
+
+                    }
+                }
+
+                averageoverall();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Log.m("DBE Error","Cancel Access DB");
+            }
+        });
+
+    }
+
+
+    private void averageoverall()
+    {
+        float total = 0;
+        float average;
+
+        for(int i = 0; i<overallratingList.size(); i++)
+        {
+            float currentNo = overallratingList.get(i);
+            total = currentNo + total;
+            average = total / overallratingList.size();
+            overallaverage = average;
+
+        }
+
+        ratingbar.setRating(overallaverage);
+
+
 
     }
 }

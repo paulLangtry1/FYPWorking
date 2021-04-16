@@ -71,7 +71,7 @@ public class company_edit_profile extends AppCompatActivity {
         etChangeName = findViewById(R.id.etChnageName);
         etChangeNumber = findViewById(R.id.etChangeNumber);
         etChangeaddress = findViewById(R.id.etchangeaddress);
-        imageView = findViewById(R.id.companyprofilepic);
+        imageView = findViewById(R.id.userprofilepic);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();

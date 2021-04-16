@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
-    tools:context=".UserContractHistory">
+    tools:context=".Company_view_previous_employee">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

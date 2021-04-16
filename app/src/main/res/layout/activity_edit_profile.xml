@@ -83,14 +83,14 @@
         android:id="@+id/tvEditdisplay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="200dp"
         android:text="Reference Letter"
         android:textColor="#FFFFFF"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -120,22 +120,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.651"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.485" />
 
     <Button
         android:id="@+id/btnSaveChanges"
-        android:layout_width="78dp"
-        android:layout_height="40dp"
+        android:layout_width="113dp"
+        android:layout_height="41dp"
+        android:drawableLeft="@drawable/ic_save"
         android:text="Save"
+        android:textColor="#000000"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.612" />
+        app:layout_constraintVertical_bias="0.595" />
 
     <ImageView
-        android:id="@+id/companyprofilepic"
+        android:id="@+id/userprofilepic"
         android:layout_width="89dp"
         android:layout_height="123dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -155,7 +158,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934"
+        app:layout_constraintVertical_bias="0.917"
         tools:srcCompat="@tools:sample/avatars" />
 
     <RatingBar
@@ -182,4 +185,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.238" />
+
+    <Button
+        android:id="@+id/btnenlarge"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:drawableLeft="@drawable/ic_enlarge"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 </androidx.constraintlayout.widget.ConstraintLayout>

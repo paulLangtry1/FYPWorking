@@ -194,24 +194,26 @@ public class UserHomeActivity extends AppCompatActivity
 
 
 
-                        if (currday<=endday && currmon<=endmonth)
+                        if (currmon<=endmonth)
                         {
-                            allContracts.add(contract);
+                            if(currday<=endday)
+                            {
+                                allContracts.add(contract);
 
-                            myAdapter.notifyItemInserted(allContracts.size() - 1);
+                                myAdapter.notifyItemInserted(allContracts.size() - 1);
+                            }
+
                         }
                         else {
 
 
-                            dbRef.child("ActiveContracts").addValueEventListener(new ValueEventListener() {
+                            dbRef.child("ActiveContracts").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     Iterable<DataSnapshot> children = snapshot.getChildren();
-                                    for (DataSnapshot child : children)
-                                    {
+                                    for (DataSnapshot child : children) {
                                         Contract contract = child.getValue(Contract.class);
-                                        if(contract.getUserID().equals(uid))
-                                        {
+                                        if (contract.getUserID().equals(uid)) {
                                             String position = contract.getPosition();
                                             String address = contract.getAddress();
                                             String enddate = contract.getEnddate();
@@ -223,14 +225,13 @@ public class UserHomeActivity extends AppCompatActivity
                                             String contractID = contract.getContractID();
                                             String companyName = contract.getCompanyName();
                                             String companyID = contract.getCompanyID();
+                                            String sector = contract.getSector();
 
 
+                                            String keyid = dbhistory.push().getKey();
 
 
-                                            String keyid =  dbhistory.push().getKey();
-
-
-                                            Contract contracthistory = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                            Contract contracthistory = new Contract(position, address, county, startdate, enddate, starttime, endtime, userID, contractID, companyName, companyID,sector);
                                             dbhistory.child(keyid).setValue(contracthistory);
                                         }
 
@@ -244,10 +245,12 @@ public class UserHomeActivity extends AppCompatActivity
                             });
 
 
-
                             dbRef.child("ActiveContracts").child(contractid).removeValue();
                             myAdapter.notifyDataSetChanged();
                         }
+
+
+
 
 
                     }
@@ -454,7 +457,7 @@ public class UserHomeActivity extends AppCompatActivity
                 verify();
                 return true;
             case R.id.item4:
-                //editProfile();
+                recommendedJobs();
                 return true;
             case R.id.item5:
                // jobHistory();
@@ -483,6 +486,17 @@ public class UserHomeActivity extends AppCompatActivity
 
 
     }
+    public void recommendedJobs()
+    {
+
+        Intent intent = new Intent(UserHomeActivity.this, UserViewContracts.class);
+        intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+
     public void allReviews()
     {
 

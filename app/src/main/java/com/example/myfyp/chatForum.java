@@ -8,6 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
+import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +62,7 @@ public class chatForum extends AppCompatActivity implements CommentAdapter.OnCon
 
 
         etAddcontent = findViewById(R.id.etAddcontent);
+        etAddcontent.setInputType(InputType.TYPE_NULL);
 
         btncreatecomment = findViewById(R.id.btnAddComment);
 
@@ -115,6 +121,15 @@ public class chatForum extends AppCompatActivity implements CommentAdapter.OnCon
 
                                 etAddcontent.setText("");
 
+                                allcomments.clear();
+                                myAdapter.notifyDataSetChanged();
+
+
+
+
+
+
+
 
                                 //String keyId = dbRef.push().getKey();
                                 //dbRef.child(keyId).setValue(contract);
@@ -152,6 +167,46 @@ public class chatForum extends AppCompatActivity implements CommentAdapter.OnCon
 
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(chatForum.this, UserViewContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(chatForum.this, UserHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
     }
 
 

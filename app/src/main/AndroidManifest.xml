@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myfyp">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -11,7 +10,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFYP">
-
+        <activity android:name=".RecommendedJobs"></activity>
+        <activity android:name=".EnlargeReferenceforcompany" />
+        <activity android:name=".EnlargedReference" />
+        <activity android:name=".Company_view_previous_employee" />
+        <activity android:name=".Company_rate_employee" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,7 +36,7 @@
 
         <activity
             android:name=".MapsSiteLocation"
-            android:label="@string/title_activity_maps_site_location"></activity>
+            android:label="@string/title_activity_maps_site_location" />
         <activity android:name=".Approve_current_safepass" />
         <activity android:name=".approve_safe_pass" />
         <activity android:name=".Company_Approve_Disaprove_User" />

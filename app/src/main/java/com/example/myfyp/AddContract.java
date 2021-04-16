@@ -9,9 +9,12 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -42,9 +45,12 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
     private Company currentcompany;
     private String startDate;
     private String endDate;
+    private String selected;
+    private Spinner spinner;
     private String startTime;
     private String endTime;
     private boolean starttimeistrue=true;
+    private static final String[] paths = {"Construction", "Demolition", "Farming","Manufacturing","Other"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,6 +73,13 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
         tvstarttime = findViewById(R.id.tvStarttime);
         tvendtime = findViewById(R.id.tvEndTime);
         etaddCounty = findViewById(R.id.etAddCounty);
+        spinner = findViewById(R.id.spinnersectorcontract);
+
+        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item,paths);
+
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(ad);
 
         btnCreateContract = findViewById(R.id.btnAddComment);
 
@@ -133,13 +146,13 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
                                 String county = etaddCounty.getText().toString();
                                 String userID = "";
                                 String companyName = currentName;
-                                String sector = "";
+                                String sector = String.valueOf(spinner.getSelectedItem());
 
 
                                 Toast.makeText(AddContract.this,"Contract Created",Toast.LENGTH_SHORT).show();
 
                                 String contractID = dbRef.push().getKey();
-                                Contract contract = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                Contract contract = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID,sector);
 
                                 dbRef.child(contractID).setValue(contract);
 
@@ -200,6 +213,8 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
 
 
     }
+
+
 
 
     @Override

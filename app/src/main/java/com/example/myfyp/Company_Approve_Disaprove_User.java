@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class Company_Approve_Disaprove_User extends AppCompatActivity {
 
-    Button btnyes,btnno;
+    Button btnyes,btnno,btnenlargerefforcompany;
     TextView display,tvusername,tvemail,tvphone,tvstatus;
     ArrayList<Contract> allContractsUser = new ArrayList<Contract>();
     private static final String Contract = "ContractHistory";
@@ -90,6 +90,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
         tvusername = findViewById(R.id.tvsafepassuser);
         imgview = findViewById(R.id.imageViewapprove);
         referenceimg = findViewById(R.id.imagesafepassapprove);
+        btnenlargerefforcompany = findViewById(R.id.btnenlargerefcompany);
 
 
 
@@ -190,7 +191,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                                                 tvusername.setText(username);
 
 
-                                                display.setText("Would you like to accept this user: " + username);
+                                                display.setText("Would you like to accept this applicant: " + username);
 
 
                                             }
@@ -224,6 +225,15 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
             }
 
 
+        });
+
+        btnenlargerefforcompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Company_Approve_Disaprove_User.this,EnlargeReferenceforcompany.class);
+                intent.putExtra("userid",usersIDtoapply);
+                startActivity(intent);
+            }
         });
 
 
@@ -264,12 +274,13 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
 
                                     String companyName = contract.getCompanyName();
                                     String companyID = contract.getCompanyID();
+                                    String sector = contract.getSector();
 
 
                                     String keyid =  dbRef.push().getKey();
                                     String contractID = keyid;
 
-                                    Contract activecontracts = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID);
+                                    Contract activecontracts = new Contract(position,address,county,startdate,enddate,starttime,endtime,userID,contractID,companyName,companyID,sector);
                                     dbrefactivecontracts.child(keyid).setValue(activecontracts);
 
                                     Intent intent = new Intent(Company_Approve_Disaprove_User.this, CompanyHomeActivity.class);
@@ -291,6 +302,12 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                 });
 
 
+
+
+
+
+    }
+});
         btnno.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -304,7 +321,4 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
         });
 
 
-
-
-    }
-});}}
+    }}

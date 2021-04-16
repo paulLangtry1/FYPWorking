@@ -160,16 +160,7 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
         String contractID = allContractsUser.get(position).getContractID();
         String startdate = allContractsUser.get(position).getStartdate();
 
-        //current contracts starting date
 
-        String[] parts = startdate.split("/");
-        int startday = Integer.parseInt(parts[0]);
-        int startmonth = Integer.parseInt(parts[1]);
-
-        //active contract end date
-        String[] parts2 = enddate.split("/");
-        int endday = Integer.parseInt(parts2[0]);
-        int endmon = Integer.parseInt(parts2[1]);
         if(enddate==null)
         {
             Intent intent = new Intent(UserViewContracts.this,CurrentContract.class);
@@ -178,6 +169,19 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
         }
         else
         {
+            //current contracts starting date
+
+            String[] parts = startdate.split("/");
+            int startday = Integer.parseInt(parts[0]);
+            int startmonth = Integer.parseInt(parts[1]);
+
+            //active contract end date
+            String[] parts2 = enddate.split("/");
+            int endday = Integer.parseInt(parts2[0]);
+            int endmon = Integer.parseInt(parts2[1]);
+
+
+
             if(startmonth>=endmon)
             {
                 if(startmonth==endmon)

@@ -52,7 +52,17 @@ public class Contract
 
     String position;
 
-    public Contract(String position, String address,String county, String startdate, String enddate, String starttime, String endtime,String userID,String contractID,String companyName,String companyID) {
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    String sector;
+
+    public Contract(String position, String address,String county, String startdate, String enddate, String starttime, String endtime,String userID,String contractID,String companyName,String companyID,String sector) {
         this.position = position;
         this.address = address;
         this.county = county;
@@ -64,6 +74,7 @@ public class Contract
         this.contractID=contractID;
         this.companyName = companyName;
         this.companyID = companyID;
+        this.sector = sector;
 
     }
 

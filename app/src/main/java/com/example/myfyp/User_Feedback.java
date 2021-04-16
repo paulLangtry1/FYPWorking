@@ -58,9 +58,9 @@ public class User_Feedback extends AppCompatActivity {
         ref= FirebaseDatabase.getInstance().getReference(Feedback);
         collective = FirebaseDatabase.getInstance().getReference(collectiveFeedback);
 
-        rateExperience = findViewById(R.id.rateExperience);
-        ratePay = findViewById(R.id.ratePay);
-        rateWorklife = findViewById(R.id.rateWorklife);
+        rateExperience = findViewById(R.id.rateoveralluser);
+        ratePay = findViewById(R.id.ratePunctuality);
+        rateWorklife = findViewById(R.id.rateCommskills);
 
 
         contractid = getIntent().getExtras().getString("contractID");

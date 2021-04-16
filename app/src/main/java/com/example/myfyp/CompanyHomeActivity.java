@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,8 @@ public class CompanyHomeActivity extends AppCompatActivity
     private FirebaseUser user;
     private String uid;
     private Company currentcompany;
+    private ImageView btnadddcontract, btnrateemployee, btnviewapplicants;
+    private Button btnviewcompanyreviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +61,12 @@ public class CompanyHomeActivity extends AppCompatActivity
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbRef=db.getReference();
         uid=user.getUid();
+
+        btnadddcontract = findViewById(R.id.btnaddjob);
+        btnrateemployee = findViewById(R.id.btnrateemployee);
+        btnviewapplicants = findViewById(R.id.btnapproveapplicant);
+        btnviewcompanyreviews = findViewById(R.id.btnviewcompanyreviews);
+
 
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -128,6 +138,34 @@ public class CompanyHomeActivity extends AppCompatActivity
             }
         });
 
+        btnadddcontract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addContract();
+            }
+        });
+        btnviewapplicants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveUser();
+            }
+        });
+        btnviewcompanyreviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allReviews();
+            }
+        });
+
+        btnrateemployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                rateemployee();
+
+
+            }
+        });
 
 
 
@@ -197,6 +235,15 @@ public class CompanyHomeActivity extends AppCompatActivity
 
 
     }
+    public void rateemployee()
+    {
+
+        Intent intent = new Intent(CompanyHomeActivity.this, Company_view_previous_employee.class);
+        startActivity(intent);
+
+
+    }
+
     public void safepassapproval()
     {
 
