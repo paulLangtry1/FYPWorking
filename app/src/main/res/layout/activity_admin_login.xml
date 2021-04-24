@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
-    tools:context=".CompanyLogin">
+    tools:context=".AdminLogin">
 
     <TextView
         android:id="@+id/tvGreetingAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Welcome To The Company Login"
+        android:text="Welcome To The Admin Login"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,9 +69,9 @@
         android:id="@+id/btnadminLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_check_white"
         android:text="Login"
         app:backgroundTint="#000000"
+        android:drawableLeft="@drawable/ic_check_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -84,8 +84,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dont have an Account?"
-        android:textStyle="bold"
         android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -93,25 +94,11 @@
         app:layout_constraintTop_toBottomOf="@+id/btnadminLogin"
         app:layout_constraintVertical_bias="0.26" />
 
-    <TextView
-        android:id="@+id/tvDontHaveAccount2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin?"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnadminLogin"
-        app:layout_constraintVertical_bias="0.666" />
-
     <Button
         android:id="@+id/btnadminReg"
         android:layout_width="wrap_content"
-        android:drawableLeft="@drawable/ic_addmore_white"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_addmore_white"
         android:text="Register"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,27 +108,27 @@
         app:layout_constraintVertical_bias="0.129" />
 
     <Button
-        android:id="@+id/btnCompReg2"
-        android:layout_width="56dp"
-        android:layout_height="37dp"
-        android:drawableLeft="@drawable/ic_check_white"
+        android:id="@+id/btnadminbackbutton"
+        android:layout_width="58dp"
+        android:layout_height="25dp"
+        android:drawableLeft="@drawable/ic_goback_white"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDontHaveAccount"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="202dp"
-        android:layout_height="118dp"
+        android:id="@+id/imageView"
+        android:layout_width="211dp"
+        android:layout_height="131dp"
         android:src="@drawable/quikhire"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164"
+        app:layout_constraintVertical_bias="0.14"
         tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

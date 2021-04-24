@@ -201,11 +201,9 @@ public class CompanyHomeActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.item1:
+                homeCompany();
                 return true;
             case R.id.item2:
-                addContract();
-                return true;
-            case R.id.item3:
                 viewAllContracts();
                 return true;
             case R.id.item4:
@@ -214,12 +212,7 @@ public class CompanyHomeActivity extends AppCompatActivity
             case R.id.item5:
                 allReviews();
                 return true;
-            case R.id.item6:
-                approveUser();
-                return true;
-            case R.id.item7:
-                safepassapproval();
-                return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -286,6 +279,15 @@ public class CompanyHomeActivity extends AppCompatActivity
 
 
     }
+    public void homeCompany()
+    {
+
+        Intent intent = new Intent(CompanyHomeActivity.this, CompanyHomeActivity.class);
+        startActivity(intent);
+
+
+    }
+
 
 
     public void onContractClick(int position)

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity
 {
     private EditText etEmailLogin, etPasswordLogin;
     private Button btnCreateAccount, btnLogin, btnCompanyLogin;
+    private ImageView img;
     private FirebaseAuth mAuth;
     private static final String USER = "user";
     private static final String TAG = "LoginActivity";
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity
         btnLogin = findViewById(R.id.btnLogin);
         btnCompanyLogin = findViewById(R.id.btnCompanyLogin);
 
+        img = findViewById(R.id.imgviewloginimg);
         mAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener()

@@ -53,7 +53,7 @@ public class CompanyRegister extends AppCompatActivity implements AdapterView.On
         etPhone = findViewById(R.id.etcompanyPhoneno);
         spinner = findViewById(R.id.spinner);
 
-        greeting = findViewById(R.id.tvGreetingCompany);
+        greeting = findViewById(R.id.tvGreetingAdmin);
 
         ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item,paths);
 

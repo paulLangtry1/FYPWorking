@@ -17,25 +17,25 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class CompanyLogin extends AppCompatActivity
-{
+public class AdminLogin extends AppCompatActivity {
+
     private EditText etCompEmail, etCompPassword;
-    private Button btnCompLogin, btnCompReg,btnadminscreen;
+    private Button btnCompLogin, btnCompReg,btngoback;
     private FirebaseAuth mAuth;
-    private static final String USER = "company";
-    private static final String TAG = "CompanyLogin";
+    private static final String USER = "Admin";
+    private static final String TAG = "AdminLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_login);
+        setContentView(R.layout.activity_admin_login);
 
         btnCompLogin = findViewById(R.id.btnadminLogin);
         btnCompReg = findViewById(R.id.btnadminReg);
+        btngoback = findViewById(R.id.btnadminbackbutton);
         etCompEmail = findViewById(R.id.etadminEmail);
         etCompPassword = findViewById(R.id.etadminPassword);
-        btnadminscreen = findViewById(R.id.btnCompReg2);
         mAuth = FirebaseAuth.getInstance();
 
         btnCompLogin.setOnClickListener(new View.OnClickListener()
@@ -50,18 +50,18 @@ public class CompanyLogin extends AppCompatActivity
                     return;
                 }
                 mAuth.signInWithEmailAndPassword(companyEmail, password)
-                        .addOnCompleteListener(CompanyLogin.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(AdminLogin.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(CompanyLogin.this, "Successfully Logged In",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminLogin.this, "Successfully Logged In",Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user
-                                    Toast.makeText(CompanyLogin.this, "Incorrect Username Or Password",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminLogin.this, "Incorrect Username Or Password",Toast.LENGTH_SHORT).show();
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
 
 
@@ -74,6 +74,14 @@ public class CompanyLogin extends AppCompatActivity
             }
         });
 
+        btngoback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent compreg = new Intent(AdminLogin.this, CompanyLogin.class);
+                startActivity(compreg);
+            }
+        });
+
 
 
 
@@ -83,18 +91,8 @@ public class CompanyLogin extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent compreg = new Intent(CompanyLogin.this, CompanyRegister.class);
+                Intent compreg = new Intent(AdminLogin.this, AdminRegister.class);
                 startActivity(compreg);
-            }
-        });
-
-        btnadminscreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Intent compreg = new Intent(CompanyLogin.this, AdminLogin.class);
-                startActivity(compreg);
-
             }
         });
 
@@ -103,7 +101,7 @@ public class CompanyLogin extends AppCompatActivity
     public void updateUI(FirebaseUser currentUser)
     {
 
-        Intent homeIntent = new Intent(CompanyLogin.this, CompanyHomeActivity.class);
+        Intent homeIntent = new Intent(AdminLogin.this, AdminHome.class);
         homeIntent.putExtra("companyEmail",currentUser.getEmail());
         startActivity(homeIntent);
     }

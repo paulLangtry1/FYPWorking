@@ -104,6 +104,8 @@ public class ActivejobAdapter extends RecyclerView.Adapter<ActivejobAdapter.MyVi
     }
 
 
+
+
     @Override
     public int getItemCount() {
         return contractssFromDB.size();

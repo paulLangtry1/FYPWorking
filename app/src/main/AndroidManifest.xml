@@ -13,11 +13,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Quik Hire"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFYP">
-        <activity android:name=".RecommendedJobs"></activity>
+        <activity android:name=".AdminHome"></activity>
+        <activity android:name=".AdminLogin" />
+        <activity android:name=".AdminRegister" />
+        <activity android:name=".RecommendedJobs" />
         <activity android:name=".EnlargeReferenceforcompany" />
         <activity android:name=".EnlargedReference" />
         <activity android:name=".Company_view_previous_employee" />

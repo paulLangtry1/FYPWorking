@@ -45,7 +45,9 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        enddate = getIntent().getExtras().getString("enddate");
+        if(enddate!=null) {
+            enddate = getIntent().getExtras().getString("enddate");
+        }
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
@@ -94,9 +96,6 @@ public class UserViewContracts extends AppCompatActivity implements MyAdapter.On
                 return true;
             case R.id.item4:
                 editProfile();
-                return true;
-            case R.id.item7:
-                chatForum();
                 return true;
             case R.id.item8:
                 maps();

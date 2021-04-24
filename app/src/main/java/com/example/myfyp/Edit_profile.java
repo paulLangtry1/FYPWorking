@@ -11,11 +11,16 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,22 +47,26 @@ import java.util.ArrayList;
 public class Edit_profile extends AppCompatActivity {
 
     private FirebaseDatabase db;
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRef,ref;
     private StorageReference profilepic;
     private StorageReference referencepic;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseUser user;
+    private User currentuser;
+    private static final String Skills = "Skills";
     private String uid;
     private Uri filepath;
     private User currentUser;
     private TextView tvName,tvNumber;
     private EditText etChangeName,etChangeNumber;
-    private Button btnSaveChanges,btnenlarge;
+    private Button btnSaveChanges,btnenlarge,btnaddjob;
     private ImageView imageView,reference;
     private String picPath;
     private ArrayList<Float> overallratingList = new ArrayList<Float>();
     private Float overallaverage;
+    private static final String[] paths = {"Plumber", "Electrician", "General Labourer","Block Layer","Builder","W Tractor License Holder","D1 Truck License Holder","Machine Operator","Excavator Driver"};
+    private Spinner spinner;
     private RatingBar ratingbar;
 
     DatabaseReference c1v2;
@@ -69,15 +78,27 @@ public class Edit_profile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
 
-        tvName=findViewById(R.id.tvCompanyNameprofile);
-        tvNumber=findViewById(R.id.tvCompanynumberdisplay);
+        //tvName=findViewById(R.id.tvCompanyNameprofile);
+        //tvNumber=findViewById(R.id.tvCompanynumberdisplay);
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         etChangeName = findViewById(R.id.etChnageName);
         etChangeNumber = findViewById(R.id.etChangeNumber);
         imageView = findViewById(R.id.userprofilepic);
         ratingbar = findViewById(R.id.ratingBarUser);
         reference = findViewById(R.id.imgreference);
+        btnaddjob = findViewById(R.id.btnaddextraskills);
         btnenlarge = findViewById(R.id.btnenlarge);
+
+        spinner = findViewById(R.id.spinneraddmoreskills);
+
+        ref= FirebaseDatabase.getInstance().getReference(Skills);
+
+
+        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item,paths);
+
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(ad);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -214,6 +235,53 @@ public class Edit_profile extends AppCompatActivity {
             }
         });
 
+        btnaddjob.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        for (DataSnapshot child : children)
+                        {
+                            if (child.getKey().equals(uid)) {
+
+                                currentUser = child.getValue(User.class);
+
+                                String userid = uid;
+                                String skill = String.valueOf(spinner.getSelectedItem());
+                                String skillid = ref.push().getKey();
+
+
+                                Toast.makeText(Edit_profile.this, "Skill Added", Toast.LENGTH_SHORT).show();
+
+                                ExtraSkills contract = new ExtraSkills(userid, skill, skillid);
+
+                                ref.child(skillid).setValue(contract);
+
+                                //String keyId = dbRef.push().getKey();
+                                //dbRef.child(keyId).setValue(contract);
+
+
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+            }
+        });
+
 
         btnSaveChanges.setOnClickListener(new View.OnClickListener()
         {
@@ -243,14 +311,14 @@ public class Edit_profile extends AppCompatActivity {
     }
 
     public void updateNumber(String newnumber){
-        dbRef.child("User").child(uid).child("phoneNumber").setValue(newnumber);
-        tvNumber.setText(newnumber);
+        dbRef.child("user").child(uid).child("phoneNo").setValue(newnumber);
+        etChangeNumber.setHint(newnumber);
         Toast.makeText(getApplicationContext(), "Number updated", Toast.LENGTH_SHORT).show();
 
     }
     public void updateName(String newname){
-        dbRef.child("User").child(uid).child("name").setValue(newname);
-        tvName.setText(newname);
+        dbRef.child("user").child(uid).child("username").setValue(newname);
+        etChangeName.setHint(newname);
         Toast.makeText(getApplicationContext(), "Name updated", Toast.LENGTH_SHORT).show();
 
     }
@@ -428,6 +496,46 @@ public class Edit_profile extends AppCompatActivity {
         });
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(Edit_profile.this, UserViewContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(Edit_profile.this, UserHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
 
 
     private void averageoverall()

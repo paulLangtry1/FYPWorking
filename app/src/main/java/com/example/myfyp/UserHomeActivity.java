@@ -24,6 +24,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,15 +44,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+
 public class UserHomeActivity extends AppCompatActivity
 {
     private EditText etSearch;
     private Button btncalender;
     private ImageView btnchatroom,btneditprofile,btnratejob; //btns are imageviews
-    private TextView tvWelcome,tvstatus,tvtodaysdate;
+    private TextView tvWelcome,tvstatus,tvtodaysdate,tvIfemptyview;
     private static final String Contract = "ContractHistory";
+    private static final String Contract2 = "Greeting";
     private FirebaseDatabase db;
-    private DatabaseReference dbRef,dbhistory;
+    private DatabaseReference dbRef,dbhistory,dbGreeting;
     private FirebaseUser user;
     private String status;
     private String uid;
@@ -63,8 +67,10 @@ public class UserHomeActivity extends AppCompatActivity
     Boolean accepted = false;
     private User currentuser;
     ArrayList<Contract> allContracts = new ArrayList<Contract>();
+
     RecyclerView mRecyclerView;
     ActivejobAdapter myAdapter;
+
     private String currentdate;
     private String address;
     private String county,startdate,enddate,starttime,endtime,useremail,title;
@@ -91,6 +97,7 @@ public class UserHomeActivity extends AppCompatActivity
 
 
         dbhistory= FirebaseDatabase.getInstance().getReference(Contract);
+        dbGreeting= FirebaseDatabase.getInstance().getReference(Contract2);
 
 
 
@@ -99,6 +106,7 @@ public class UserHomeActivity extends AppCompatActivity
         tvWelcome = findViewById(R.id.tvWelcome);
         tvstatus = findViewById(R.id.tvPending);
         tvtodaysdate = findViewById(R.id.tvTodaysDate);
+        tvIfemptyview = findViewById(R.id.tvIfemptyviewmsg);
 
         //ui buttons
         btnchatroom = findViewById(R.id.btnchatroomui);
@@ -201,7 +209,55 @@ public class UserHomeActivity extends AppCompatActivity
                                 allContracts.add(contract);
 
                                 myAdapter.notifyItemInserted(allContracts.size() - 1);
+
+                                tvIfemptyview.setText("");
                             }
+                            else {
+
+
+                                dbRef.child("ActiveContracts").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                                        for (DataSnapshot child : children) {
+                                            Contract contract = child.getValue(Contract.class);
+                                            if (contract.getUserID().equals(uid)) {
+                                                String position = contract.getPosition();
+                                                String address = contract.getAddress();
+                                                String enddate = contract.getEnddate();
+                                                String startdate = contract.getStartdate();
+                                                String endtime = contract.getEndtime();
+                                                String starttime = contract.getStarttime();
+                                                String userID = uid;
+                                                String county = contract.getCounty();
+                                                String contractID = contract.getContractID();
+                                                String companyName = contract.getCompanyName();
+                                                String companyID = contract.getCompanyID();
+                                                String sector = contract.getSector();
+
+
+                                                String keyid = dbhistory.push().getKey();
+
+
+                                                Contract contracthistory = new Contract(position, address, county, startdate, enddate, starttime, endtime, userID, contractID, companyName, companyID,sector);
+                                                dbhistory.child(keyid).setValue(contracthistory);
+                                            }
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        //   Log.m("DBE Error","Cancel Access DB");
+                                    }
+                                });
+
+
+                                dbRef.child("ActiveContracts").child(contractid).removeValue();
+                                myAdapter.notifyDataSetChanged();
+                            }
+
+
 
                         }
                         else {
@@ -271,6 +327,17 @@ public class UserHomeActivity extends AppCompatActivity
                 //   Log.m("DBE Error","Cancel Access DB");
             }
         });
+
+        if(myAdapter.getItemCount() == 0)
+        {
+
+            tvIfemptyview.setText("No Jobs Currently Active");
+
+
+
+
+
+        }
 
 
 
@@ -459,15 +526,6 @@ public class UserHomeActivity extends AppCompatActivity
             case R.id.item4:
                 recommendedJobs();
                 return true;
-            case R.id.item5:
-               // jobHistory();
-                return true;
-            case R.id.item6:
-                allReviews();
-                return true;
-            case R.id.item7:
-               // chatForum();
-                return true;
             case R.id.item8:
                 maps();
                 return true;
@@ -489,8 +547,7 @@ public class UserHomeActivity extends AppCompatActivity
     public void recommendedJobs()
     {
 
-        Intent intent = new Intent(UserHomeActivity.this, UserViewContracts.class);
-        intent.putExtra( "enddate", enddate);
+        Intent intent = new Intent(UserHomeActivity.this, RecommendedJobs.class);
         startActivity(intent);
 
 

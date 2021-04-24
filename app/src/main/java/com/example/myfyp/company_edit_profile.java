@@ -64,8 +64,8 @@ public class company_edit_profile extends AppCompatActivity {
 
 
         tvName=findViewById(R.id.tvCompanyNameprofile);
-        tvNumber=findViewById(R.id.tvCompanynumberdisplay);
-        tvAddress=findViewById(R.id.tvcompanyaddress);
+        //tvNumber=findViewById(R.id.tvCompanynumberdisplay);
+        //tvAddress=findViewById(R.id.tvcompanyaddress);
 
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         etChangeName = findViewById(R.id.etChnageName);
@@ -105,8 +105,8 @@ public class company_edit_profile extends AppCompatActivity {
                         String phoneNo = currentUser.getPhoneNo();
                         //String link = currentUser.getPpurl();
                         tvName.setText(currentName);
-                        tvNumber.setText(phoneNo);
-                        tvAddress.setText(currentaddress);
+                        etChangeNumber.setHint(phoneNo);
+                        etChangeaddress.setHint(currentaddress);
 
 
 
@@ -193,13 +193,13 @@ public class company_edit_profile extends AppCompatActivity {
 
     public void updateNumber(String newnumber){
         dbRef.child("Company").child(uid).child("phoneNo").setValue(newnumber);
-        tvNumber.setText(newnumber);
+        etChangeNumber.setHint(newnumber);
         Toast.makeText(getApplicationContext(), "Number updated", Toast.LENGTH_SHORT).show();
 
     }
     public void updateAddress(String newaddress){
         dbRef.child("Company").child(uid).child("address").setValue(newaddress);
-        tvAddress.setText(newaddress);
+        etChangeaddress.setHint(newaddress);
         Toast.makeText(getApplicationContext(), "Address updated", Toast.LENGTH_SHORT).show();
 
     }
