@@ -116,7 +116,7 @@
         android:id="@+id/tvStarttime"
         android:layout_width="241dp"
         android:layout_height="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_time"
         android:text="  Start Time"
         android:textColor="#FFFFFF"
@@ -130,26 +130,26 @@
         android:id="@+id/tvEndTime"
         android:layout_width="243dp"
         android:layout_height="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:drawableLeft="@drawable/ic_time"
         android:text="  Finish Time"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStarttime" />
 
     <Spinner
         android:id="@+id/spinnersectorcontract"
-        android:layout_width="217dp"
-        android:layout_height="48dp"
+        android:layout_width="258dp"
+        android:layout_height="83dp"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/etAddposition"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeaddnote"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

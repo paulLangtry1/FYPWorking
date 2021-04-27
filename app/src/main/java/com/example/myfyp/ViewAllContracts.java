@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,6 +75,8 @@ public class ViewAllContracts extends AppCompatActivity implements MyAdapter.OnC
             }
         });
 
+
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -116,9 +120,19 @@ public class ViewAllContracts extends AppCompatActivity implements MyAdapter.OnC
     @Override
     public void onContractClick(int position)
     {
-        allContracts.get(position);
-        Intent intent = new Intent(ViewAllContracts.this,CurrentContract.class);
-        intent.putExtra( "Position", position);
-        startActivity(intent);
+        String contractid = allContracts.get(position).getContractID();
+        String contractscompid = allContracts.get(position).getCompanyID();
+
+        if(contractscompid.equals(uid))
+        {
+            Intent intent = new Intent(ViewAllContracts.this, edit_contract_company.class);
+            intent.putExtra( "contractid", contractid);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(ViewAllContracts.this,"This Job was not listed by your company!",Toast.LENGTH_LONG).show();
+        }
+
     }
 }

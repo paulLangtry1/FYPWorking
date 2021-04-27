@@ -25,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
     //Inner class - Provide a reference to each item/row
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtView;
+        public TextView txtView,txtview2;
         public TextView activejob;
 
         //public Button btnAcceptContract;
@@ -34,6 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
         public MyViewHolder(View itemView,OnContractListener onContractListener){
             super(itemView);
             txtView= itemView.findViewById(R.id.textView);
+            txtview2 = itemView.findViewById(R.id.textView5);
 
 
             this.onContractListener = onContractListener;
@@ -84,7 +85,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         final Contract contract=contractssFromDB.get(position);
-        holder.txtView.setText("Position :"+contract.getPosition()+"\n" + "\n" + "Address :"+contract.getAddress()+"\n" + "County:"+contract.getCounty()+ "\n" + "Start Date :"+contract.getStartdate()+ "\n" + "End Date :"+contract.getEnddate());
+        holder.txtView.setText(contract.getPosition()+"\n");
+        holder.txtview2.setText("\n"+"\n"+"Address:" + " " +contract.getAddress()+"\n" + "County:"+ " " +contract.getCounty()+ "\n" + "Start Date:" + " " +contract.getStartdate()+ "\n" + "End Date:" + " "  +contract.getEnddate());
 
     }
     public void add(int position, Contract contract){

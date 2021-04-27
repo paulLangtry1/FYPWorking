@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
-    tools:context=".company_edit_profile">
+    tools:context=".edit_contract_company">
 
     <TextView
         android:id="@+id/tvviewupdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Or Update Infromation"
+        android:text="View Or Add Preffered Skills"
         android:textColor="#FFFFFF"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,134 +26,138 @@
         android:id="@+id/tvdetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="Current Details"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvviewupdate"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintVertical_bias="0.305" />
+
+    <TextView
+        android:id="@+id/tvdetails2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Preferred Skills"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvviewupdate"
+        app:layout_constraintVertical_bias="0.677" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Userame :"
+        android:text="Title :"
         android:textColor="#FFFFFF"
-        android:textSize="17dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvdetails"
-        app:layout_constraintVertical_bias="0.129" />
-
-    <TextView
-        android:id="@+id/tvCompanyNameprofile"
-        android:layout_width="191dp"
-        android:layout_height="26dp"
-        android:textSize="17dp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.722"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintVertical_bias="0.155" />
 
     <TextView
         android:id="@+id/tvNumbere"
-        android:layout_width="79dp"
-        android:layout_height="29dp"
-        android:text="Number : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address : "
         android:textColor="#FFFFFF"
-        android:textSize="17dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.157" />
 
-    <TextView
-        android:id="@+id/tvNumbere2"
+    <EditText
+        android:id="@+id/etedittitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:text="Address : "
+        android:ems="10"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
-        android:textSize="17dp"
-        android:textStyle="bold"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/etchangeaddress"
-        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598" />
+        app:layout_constraintVertical_bias="0.469" />
 
     <EditText
         android:id="@+id/etaddressdetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Edit Number:"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.463" />
-
-    <EditText
-        android:id="@+id/etchangeaddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Edit Address:"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveChanges"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etaddressdetail"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <Button
         android:id="@+id/btnSaveChanges"
-        android:layout_width="109dp"
-        android:layout_height="39dp"
-        android:drawableLeft="@drawable/ic_addmore_white"
+        android:layout_width="113dp"
+        android:layout_height="41dp"
+        android:drawableLeft="@drawable/ic_save"
         android:text="Save"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:backgroundTint="#000000"
+        android:textColor="#000000"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintVertical_bias="0.915" />
 
     <ImageView
         android:id="@+id/userprofilepic"
-        android:layout_width="109dp"
-        android:layout_height="142dp"
+        android:layout_width="266dp"
+        android:layout_height="145dp"
+        android:src="@drawable/quikhire"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.079"
+        app:layout_constraintVertical_bias="0.141"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/btnaddextraskills"
+        android:layout_width="57dp"
+        android:layout_height="42dp"
+        android:drawableLeft="@drawable/ic_add_more"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.792" />
+
+    <Spinner
+        android:id="@+id/spinneraddmoreskills"
+        android:layout_width="190dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.798" />
 </androidx.constraintlayout.widget.ConstraintLayout>

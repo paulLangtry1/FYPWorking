@@ -2,6 +2,8 @@ package com.example.myfyp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class CurrentContract extends AppCompatActivity {
 
     Button btnyes,btnno;
+    ArrayList<ExtraSkills> allFeedback = new ArrayList<ExtraSkills>();
     TextView display;
     ArrayList<Contract> allContractsUser = new ArrayList<Contract>();
     private static final String Contract = "ContractHistory";
@@ -36,6 +39,7 @@ public class CurrentContract extends AppCompatActivity {
     DatabaseReference ref;
     MyAdapter myAdapter;
     private FirebaseUser user;
+    skillsAdapter skillsAdapter;
     RecyclerView mRecyclerView;
     private String contractuid;
     private String address,county;
@@ -56,6 +60,7 @@ public class CurrentContract extends AppCompatActivity {
         ref = database.getReference();
         dbRef= FirebaseDatabase.getInstance().getReference(Contract);
         dbrefAcceptance = FirebaseDatabase.getInstance().getReference(ContractConsideration);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewcontract);
 
 
         contractuid = getIntent().getExtras().getString("Value");
@@ -64,6 +69,15 @@ public class CurrentContract extends AppCompatActivity {
         btnno = findViewById(R.id.btnNo);
         display = findViewById(R.id.tvDisplayAccept);
         btncontractlocation = findViewById(R.id.btnviewlocation);
+
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        skillsAdapter = new skillsAdapter(allFeedback,this::onContractClick);
+        mRecyclerView.setAdapter(skillsAdapter);
+
+
 
         ref.child("Contract").addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,6 +111,33 @@ public class CurrentContract extends AppCompatActivity {
             }
 
 
+        });
+
+
+        ref.child("Preferred Skills").addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child : children)
+                {
+                    ExtraSkills feedback = child.getValue(ExtraSkills.class);
+
+                    if(feedback.getUserid().equals(contractuid))
+                    {
+
+                        allFeedback.add(feedback);
+
+                        skillsAdapter.notifyItemInserted(allFeedback.size() - 1);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Log.m("DBE Error","Cancel Access DB");
+            }
         });
 
         btncontractlocation.setOnClickListener(new View.OnClickListener()
@@ -199,6 +240,12 @@ public class CurrentContract extends AppCompatActivity {
 
 
     }
+
+    private void onContractClick(int i)
+    {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

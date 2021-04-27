@@ -24,6 +24,9 @@
         android:title="Maps"
         android:icon="@drawable/maps"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/item9"
+        android:title="Log Out"
+        app:showAsAction="ifRoom"/>
 
 
 </menu>

@@ -68,8 +68,8 @@ public class company_edit_profile extends AppCompatActivity {
         //tvAddress=findViewById(R.id.tvcompanyaddress);
 
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
-        etChangeName = findViewById(R.id.etChnageName);
-        etChangeNumber = findViewById(R.id.etChangeNumber);
+        etChangeName = findViewById(R.id.etedittitle);
+        etChangeNumber = findViewById(R.id.etaddressdetail);
         etChangeaddress = findViewById(R.id.etchangeaddress);
         imageView = findViewById(R.id.userprofilepic);
 

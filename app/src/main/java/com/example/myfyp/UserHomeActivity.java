@@ -529,6 +529,9 @@ public class UserHomeActivity extends AppCompatActivity
             case R.id.item8:
                 maps();
                 return true;
+            case R.id.item9:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -549,6 +552,17 @@ public class UserHomeActivity extends AppCompatActivity
 
         Intent intent = new Intent(UserHomeActivity.this, RecommendedJobs.class);
         startActivity(intent);
+
+
+    }
+
+    public void logout()
+    {
+
+        Intent loginscreen=new Intent(UserHomeActivity.this,LoginActivity.class);
+        loginscreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginscreen);
+        this.finish();
 
 
     }

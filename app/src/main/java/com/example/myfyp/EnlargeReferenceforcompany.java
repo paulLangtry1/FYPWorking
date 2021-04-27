@@ -3,9 +3,15 @@ package com.example.myfyp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,6 +34,7 @@ public class EnlargeReferenceforcompany extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private String Passeduid;
+    private Button btngoback;
 
 
     @Override
@@ -40,6 +47,7 @@ public class EnlargeReferenceforcompany extends AppCompatActivity {
         uid = user.getUid();
 
         imageView = findViewById(R.id.imageViewforapprovedissaproveuser);
+        btngoback = findViewById(R.id.btnenlargerefgoback);
 
         Passeduid = getIntent().getExtras().getString("userid");
 
@@ -75,7 +83,58 @@ public class EnlargeReferenceforcompany extends AppCompatActivity {
         }
 
 
+
+        btngoback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(EnlargeReferenceforcompany.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(EnlargeReferenceforcompany.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
 
 
 

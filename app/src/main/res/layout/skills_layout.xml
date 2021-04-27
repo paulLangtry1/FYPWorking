@@ -30,30 +30,20 @@
 
         <TextView
             android:id="@+id/textView"
-            android:padding="5dp"
-            android:textSize="18dp"
-            android:layout_width="wrap_content"
+            android:padding="20dp"
             android:textStyle="bold"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
 
         <ImageView
             android:id="@+id/photo"
-            android:layout_width="152dp"
-            android:layout_height="122dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/applynow" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:src="@drawable/skills2"
+            android:scaleType="fitXY"/>
 
 
     </RelativeLayout>

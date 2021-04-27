@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,6 +106,13 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
         //myAdapter = new MyAdapter(allcontracts,this::onContractClick);
         mRecyclerView.setAdapter(myAdapter);
 
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(Color.WHITE);
+            }
+        });
+
         btnsort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -168,6 +177,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
                 else if(spinner.getSelectedItem().equals("Skills"))
                 {
                     clear();
+                    tvbasedonprevious.setText("Based On Skills");
 
                     ref.child("Skills").addValueEventListener(new ValueEventListener() {
                         @Override
@@ -256,7 +266,8 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                             }
-                            descending();
+                            tvbasedonprevious.setText("Based On Start Date");
+                            ascending();
 
 
 
@@ -361,7 +372,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Previous Jobs");
                 }
                 myAdapter.notifyDataSetChanged();
 
@@ -400,7 +411,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Your Skills");
                 }
                 if (myAdapter.getItemCount() == 0) {
 
@@ -473,7 +484,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Your Skills");
                 }
                 if (myAdapter.getItemCount() == 0) {
 
@@ -509,7 +520,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Your Skills");
                 }
                 if (myAdapter.getItemCount() == 0) {
 
@@ -545,7 +556,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Your Skills");
                 }
                 if (myAdapter.getItemCount() == 0) {
 
@@ -581,7 +592,7 @@ public class RecommendedJobs extends AppCompatActivity implements MyAdapter.OnCo
 
 
                     }
-                    tvbasedonprevious.setText("");
+                    tvbasedonprevious.setText("Based On Your Skills");
                 }
                 if (myAdapter.getItemCount() == 0) {
 

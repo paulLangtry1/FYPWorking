@@ -2,16 +2,23 @@ package com.example.myfyp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +41,7 @@ import java.util.ArrayList;
 
 public class Company_Approve_Disaprove_User extends AppCompatActivity {
 
-    Button btnyes,btnno,btnenlargerefforcompany;
+    Button btnyes,btnno,btnenlargerefforcompany,btnviewskills;
     TextView display,tvusername,tvemail,tvphone,tvstatus;
     ArrayList<Contract> allContractsUser = new ArrayList<Contract>();
     private static final String Contract = "ContractHistory";
@@ -42,22 +49,30 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
     private static final String ActiveContracts = "ActiveContracts";
     private FirebaseDatabase database;
     private FirebaseStorage storage;
+    ArrayList<ExtraSkills> allFeedback = new ArrayList<ExtraSkills>();
     private  DatabaseReference c1v2;
     private DatabaseReference dbRef,dbrefAcceptance,dbrefactivecontracts;
     DatabaseReference ref;
     MyAdapter myAdapter;
     private StorageReference profilepic;
     private StorageReference referencepic;
+    private ArrayList<Float> overallratingList = new ArrayList<Float>();
+    private ArrayList<String> skillsarraylist = new ArrayList<String>();
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String contractuid;
+    private RatingBar ratingbar;
     private String userid;
-    private ImageView imgview,referenceimg;
+    private ImageView imgview,referenceimg,imgviewqmark;
     private Contract currentcontract;
     private User currentuser;
+    private String usersid;
     private String usersIDtoapply;
     private String contractsidrepresenatation;
     private String tempcontractid;
+    private Float overallaverage;
+    RecyclerView m2RecyclerView;
+    skillsAdapter skillsAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -91,10 +106,15 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
         imgview = findViewById(R.id.imageViewapprove);
         referenceimg = findViewById(R.id.imagesafepassapprove);
         btnenlargerefforcompany = findViewById(R.id.btnenlargerefcompany);
+        btnviewskills = findViewById(R.id.btnviewskillscomp);
+        imgviewqmark = findViewById(R.id.imgviewqmark);
+
+        ratingbar = findViewById(R.id.ratingBarcompviewuser);
 
 
 
-        ref.child("ContractConsideration").addValueEventListener(new ValueEventListener() {
+        ref.child("ContractConsideration").addValueEventListener(new ValueEventListener()
+        {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> children = snapshot.getChildren();
@@ -184,6 +204,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                                                 String email = currentuser.getEmail();
                                                 String phoneNo = currentuser.getPhoneNo();
                                                 String status = currentuser.getStatus();
+                                                usersid = currentuser.getUserID();
 
                                                 tvstatus.setText(status);
                                                 tvphone.setText(phoneNo);
@@ -212,6 +233,9 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
 
 
                         }
+
+
+
                     }
 
                 }
@@ -225,7 +249,18 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
             }
 
 
+
         });
+        gettingaverage();
+
+
+
+
+
+
+
+
+
 
         btnenlargerefforcompany.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,6 +269,18 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
                 intent.putExtra("userid",usersIDtoapply);
                 startActivity(intent);
             }
+        });
+
+        btnviewskills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(Company_Approve_Disaprove_User.this,view_skills.class);
+                intent.putExtra("userid",usersIDtoapply);
+                startActivity(intent);
+
+            }
+
         });
 
 
@@ -321,4 +368,111 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
         });
 
 
-    }}
+        imgviewqmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                new AlertDialog.Builder(Company_Approve_Disaprove_User.this).setTitle("Average Rating").setMessage("This is the workers current average rating from previous employers").show();
+
+            }
+        });
+
+
+    }
+    private void gettingaverage()
+    {
+        ref.child("EmployeeFeedback").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child : children) {
+                    EmployeeFeedback feedback = child.getValue(EmployeeFeedback.class);
+                    if (feedback.getEmployeeid().equals(usersIDtoapply))
+                    {
+
+                        Float overall = Float.valueOf(feedback.getOverallrating());
+
+                        overallratingList.add(overall);
+
+
+                    }
+                }
+
+               averageoverall();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Log.m("DBE Error","Cancel Access DB");
+            }
+        });
+
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(Company_Approve_Disaprove_User.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(Company_Approve_Disaprove_User.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+
+
+    private void averageoverall()
+    {
+        float total = 0;
+        float average;
+
+        for(int i = 0; i<overallratingList.size(); i++)
+        {
+            float currentNo = overallratingList.get(i);
+            total = currentNo + total;
+            average = total / overallratingList.size();
+            overallaverage = average;
+
+        }
+
+        ratingbar.setRating(overallaverage);
+
+
+
+    }
+
+
+
+}

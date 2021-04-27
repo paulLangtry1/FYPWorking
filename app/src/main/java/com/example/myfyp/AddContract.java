@@ -7,8 +7,13 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -81,6 +86,8 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
 
         spinner.setAdapter(ad);
 
+
+
         btnCreateContract = findViewById(R.id.btnAddComment);
 
         tvstartdate.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +121,13 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
                 DialogFragment timepicker = new TimePickerFragment();
                 timepicker.show(getSupportFragmentManager(),"time picker");
                 starttimeistrue=false;
+            }
+        });
+
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(Color.WHITE);
             }
         });
 
@@ -213,6 +227,48 @@ public class AddContract extends AppCompatActivity implements DatePickerDialog.O
 
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(AddContract.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(AddContract.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+
 
 
 

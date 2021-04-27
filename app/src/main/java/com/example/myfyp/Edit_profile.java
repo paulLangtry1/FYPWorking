@@ -81,8 +81,8 @@ public class Edit_profile extends AppCompatActivity {
         //tvName=findViewById(R.id.tvCompanyNameprofile);
         //tvNumber=findViewById(R.id.tvCompanynumberdisplay);
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
-        etChangeName = findViewById(R.id.etChnageName);
-        etChangeNumber = findViewById(R.id.etChangeNumber);
+        etChangeName = findViewById(R.id.etedittitle);
+        etChangeNumber = findViewById(R.id.etaddressdetail);
         imageView = findViewById(R.id.userprofilepic);
         ratingbar = findViewById(R.id.ratingBarUser);
         reference = findViewById(R.id.imgreference);
