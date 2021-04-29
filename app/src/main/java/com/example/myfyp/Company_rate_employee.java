@@ -8,6 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,7 +79,7 @@ public class Company_rate_employee extends AppCompatActivity
         ratePunctuality = findViewById(R.id.ratePunctuality);
         ratecommskills = findViewById(R.id.rateCommskills);
 
-        imageView = findViewById(R.id.userprofilepic);
+        imageView = findViewById(R.id.compprofilepic);
 
 
         contractid = getIntent().getExtras().getString("userid");
@@ -230,6 +233,47 @@ public class Company_rate_employee extends AppCompatActivity
 
 
         });
+
+
+
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(Company_rate_employee.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(Company_rate_employee.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
 
     }
 }

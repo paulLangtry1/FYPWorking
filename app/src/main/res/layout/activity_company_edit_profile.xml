@@ -144,7 +144,7 @@
         app:layout_constraintVertical_bias="0.702" />
 
     <ImageView
-        android:id="@+id/userprofilepic"
+        android:id="@+id/compprofilepic"
         android:layout_width="109dp"
         android:layout_height="142dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,5 +154,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.079"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvcomppp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Profile Pic"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

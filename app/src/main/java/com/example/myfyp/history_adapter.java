@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class skillsAdapter extends RecyclerView.Adapter<skillsAdapter.MyViewHolder>
+public class history_adapter extends RecyclerView.Adapter<history_adapter.MyViewHolder>
 {
-    ArrayList<ExtraSkills> contractssFromDB;
+    ArrayList<Contract> contractssFromDB;
 
-    private skillsAdapter.OnContractListener monContractListener;
+    private history_adapter.OnContractListener monContractListener;
 
-    public skillsAdapter(ArrayList<Comment> allcomments) {
+    public history_adapter(ArrayList<Comment> allcomments) {
     }
 
     //Inner class - Provide a reference to each item/row
@@ -26,9 +26,9 @@ public class skillsAdapter extends RecyclerView.Adapter<skillsAdapter.MyViewHold
         public TextView activejob;
 
         //public Button btnAcceptContract;
-        skillsAdapter.OnContractListener onContractListener;
+        history_adapter.OnContractListener onContractListener;
 
-        public MyViewHolder(View itemView, skillsAdapter.OnContractListener onContractListener){
+        public MyViewHolder(View itemView, history_adapter.OnContractListener onContractListener){
             super(itemView);
             txtView= itemView.findViewById(R.id.textView);
             txtview2 = itemView.findViewById(R.id.textView5);
@@ -57,18 +57,18 @@ public class skillsAdapter extends RecyclerView.Adapter<skillsAdapter.MyViewHold
         }
     }
 
-    public skillsAdapter(ArrayList<ExtraSkills>myDataset, skillsAdapter.OnContractListener onContractListener)
+    public history_adapter(ArrayList<Contract>myDataset, history_adapter.OnContractListener onContractListener)
     {
         contractssFromDB=myDataset;
         this.monContractListener = onContractListener;
 
     }
     @Override
-    public skillsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public history_adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         //create new view - create a row - inflate the layout for the row
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.skills_layout,parent,false);
-        skillsAdapter.MyViewHolder viewHolder=new skillsAdapter.MyViewHolder(itemView, monContractListener);
+        View itemView =inflater.inflate(R.layout.layout_for_company_admin,parent,false);
+        history_adapter.MyViewHolder viewHolder=new history_adapter.MyViewHolder(itemView, monContractListener);
         return viewHolder;
     }
 
@@ -79,14 +79,14 @@ public class skillsAdapter extends RecyclerView.Adapter<skillsAdapter.MyViewHold
 
 
     @Override
-    public void onBindViewHolder(@NonNull skillsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull history_adapter.MyViewHolder holder, int position) {
 
-        final ExtraSkills contract=contractssFromDB.get(position);
-        holder.txtView.setText(contract.getSkill()+"\n");
-       // holder.txtview2.setText("\n"+"\n"+"Address:" + " " +contract.getAddress()+"\n" + "County:"+ " " +contract.getCounty()+ "\n" + "Start Date:" + " " +contract.getStartdate()+ "\n" + "End Date:" + " "  +contract.getEnddate());
+        final Contract contract=contractssFromDB.get(position);
+        holder.txtView.setText(contract.getPosition()+"\n");
+//        holder.txtview2.setText("\n"+"\n"+"Address:" + " " +contract.getAddress()+"\n" + "County:"+ " " +contract.getCounty()+ "\n" + "Start Date:" + " " +contract.getStartdate()+ "\n" + "End Date:" + " "  +contract.getEnddate());
 
     }
-    public void add(int position, ExtraSkills contract){
+    public void add(int position, Contract contract){
         contractssFromDB.add(position, contract);
         notifyItemInserted(position);
     }
@@ -94,11 +94,11 @@ public class skillsAdapter extends RecyclerView.Adapter<skillsAdapter.MyViewHold
         contractssFromDB.remove(position);
         notifyItemRemoved(position);
     }
-    public void update(ExtraSkills contract,int position){
+    public void update(Contract contract,int position){
         contractssFromDB.set(position,contract);
         notifyItemChanged(position);
     }
-    public void addItemtoEnd(ExtraSkills contract){
+    public void addItemtoEnd(Contract contract){
         //these functions are user-defined
         contractssFromDB.add(contract);
         notifyItemInserted(contractssFromDB.size());

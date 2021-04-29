@@ -2,12 +2,9 @@ package com.example.myfyp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -107,7 +104,7 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
         referenceimg = findViewById(R.id.imagesafepassapprove);
         btnenlargerefforcompany = findViewById(R.id.btnenlargerefcompany);
         btnviewskills = findViewById(R.id.btnviewskillscomp);
-        imgviewqmark = findViewById(R.id.imgviewqmark);
+        imgviewqmark = findViewById(R.id.imgviewqmarkedit);
 
         ratingbar = findViewById(R.id.ratingBarcompviewuser);
 
@@ -467,7 +464,11 @@ public class Company_Approve_Disaprove_User extends AppCompatActivity {
 
         }
 
-        ratingbar.setRating(overallaverage);
+        if(overallaverage!=null)
+        {
+            ratingbar.setRating(overallaverage);
+        }
+
 
 
 

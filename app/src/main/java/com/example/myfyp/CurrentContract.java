@@ -60,7 +60,7 @@ public class CurrentContract extends AppCompatActivity {
         ref = database.getReference();
         dbRef= FirebaseDatabase.getInstance().getReference(Contract);
         dbrefAcceptance = FirebaseDatabase.getInstance().getReference(ContractConsideration);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewcontract);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewcontract2);
 
 
         contractuid = getIntent().getExtras().getString("Value");

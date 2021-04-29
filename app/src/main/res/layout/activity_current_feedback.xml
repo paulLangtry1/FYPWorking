@@ -103,7 +103,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/userprofilepic"
+        android:id="@+id/compprofilepic"
         android:layout_width="80dp"
         android:layout_height="110dp"
         app:layout_constraintBottom_toBottomOf="parent"

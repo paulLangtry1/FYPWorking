@@ -38,7 +38,7 @@ public class CompanyHomeActivity extends AppCompatActivity
 
     private String status;
 
-    private TextView tvWelcome;
+    private TextView tvWelcome,tvifemptyview;
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
     private FirebaseUser user;
@@ -66,6 +66,7 @@ public class CompanyHomeActivity extends AppCompatActivity
         btnrateemployee = findViewById(R.id.btnrateemployee);
         btnviewapplicants = findViewById(R.id.btnapproveapplicant);
         btnviewcompanyreviews = findViewById(R.id.btnviewcompanyreviews);
+        tvifemptyview = findViewById(R.id.tvcompifempty);
 
 
         mRecyclerView.setHasFixedSize(true);
@@ -128,6 +129,8 @@ public class CompanyHomeActivity extends AppCompatActivity
                     allContracts.add(contract);
 
                     myAdapter.notifyItemInserted(allContracts.size() - 1);
+
+                    tvifemptyview.setText("");
                  }
                 }
             }
@@ -166,6 +169,16 @@ public class CompanyHomeActivity extends AppCompatActivity
 
             }
         });
+        if(myAdapter.getItemCount() == 0)
+        {
+
+            tvifemptyview.setText("No Jobs Currently Active");
+
+
+
+
+
+        }
 
 
 
@@ -212,6 +225,9 @@ public class CompanyHomeActivity extends AppCompatActivity
             case R.id.item5:
                 allReviews();
                 return true;
+            case R.id.item6:
+                logout();
+                return true;
 
 
             default:
@@ -242,6 +258,16 @@ public class CompanyHomeActivity extends AppCompatActivity
 
         Intent intent = new Intent(CompanyHomeActivity.this, approve_safe_pass.class);
         startActivity(intent);
+
+
+    }
+    public void logout()
+    {
+
+        Intent loginscreen=new Intent(CompanyHomeActivity.this,CompanyLogin.class);
+        loginscreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginscreen);
+        this.finish();
 
 
     }
@@ -295,7 +321,7 @@ public class CompanyHomeActivity extends AppCompatActivity
         allContracts.get(position);
         Intent intent = new Intent(CompanyHomeActivity.this,CurrentContract.class);
         intent.putExtra( "Position", position);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
 

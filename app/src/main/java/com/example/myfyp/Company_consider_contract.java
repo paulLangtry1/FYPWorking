@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,13 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Company_consider_contract extends AppCompatActivity implements MyAdapter.OnContractListener {
+public class Company_consider_contract extends AppCompatActivity implements history_adapter.OnContractListener {
 
     ArrayList<Contract> allContractsUser = new ArrayList<Contract>();
 
     private FirebaseDatabase database;
     private DatabaseReference ref;
-    MyAdapter myAdapter;
+    history_adapter myAdapter;
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String uid;
@@ -49,7 +52,7 @@ public class Company_consider_contract extends AppCompatActivity implements MyAd
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        myAdapter = new MyAdapter(allContractsUser,this::onContractClick);
+        myAdapter = new history_adapter(allContractsUser,this::onContractClick);
         mRecyclerView.setAdapter(myAdapter);
 
         ref.child("ContractConsideration").addValueEventListener(new ValueEventListener() {
@@ -90,4 +93,46 @@ public class Company_consider_contract extends AppCompatActivity implements MyAd
         intent.putExtra("tempcontractid",tempcontractid);
         startActivity(intent);
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(Company_consider_contract.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(Company_consider_contract.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+
 }

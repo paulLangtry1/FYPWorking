@@ -72,7 +72,7 @@ public class edit_contract_company extends AppCompatActivity {
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         etChangeName = findViewById(R.id.etedittitle);
         etChangeNumber = findViewById(R.id.etaddressdetail);
-        imageView = findViewById(R.id.userprofilepic);
+        imageView = findViewById(R.id.compprofilepic);
         ratingbar = findViewById(R.id.ratingBarUser);
         reference = findViewById(R.id.imgreference);
         btnaddjob = findViewById(R.id.btnaddextraskills);

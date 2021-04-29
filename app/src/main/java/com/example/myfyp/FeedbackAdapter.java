@@ -62,7 +62,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
     public FeedbackAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         //create new view - create a row - inflate the layout for the row
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.row_layout,parent,false);
+        View itemView =inflater.inflate(R.layout.layout_for_company_admin,parent,false);
         MyViewHolder viewHolder=new MyViewHolder(itemView, monContractListener);
         return viewHolder;
     }
@@ -80,7 +80,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
     public void onBindViewHolder(@NonNull FeedbackAdapter.MyViewHolder holder, int position) {
 
         final Feedback fb=fbFromDB.get(position);
-        holder.txtView.setText("Company Name :"+ fb.getCompanyName()+ "\n");
+        holder.txtView.setText(fb.getCompanyName()+ "\n");
     }
     public void add(int position, Feedback feedback){
         fbFromDB.add(position, feedback);

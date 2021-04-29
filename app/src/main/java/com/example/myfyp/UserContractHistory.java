@@ -28,7 +28,7 @@ public class UserContractHistory extends AppCompatActivity implements MyAdapter.
 
     private FirebaseDatabase database;
     private DatabaseReference ref;
-    MyAdapter myAdapter;
+    history_adapter myAdapter;
     private FirebaseUser user;
     RecyclerView mRecyclerView;
     private String uid;
@@ -51,7 +51,7 @@ public class UserContractHistory extends AppCompatActivity implements MyAdapter.
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        myAdapter = new MyAdapter(allContractsUser,this::onContractClick);
+        myAdapter = new history_adapter(allContractsUser,this::onContractClick);
         mRecyclerView.setAdapter(myAdapter);
 
         ref.child("ContractHistory").addValueEventListener(new ValueEventListener() {
@@ -84,9 +84,11 @@ public class UserContractHistory extends AppCompatActivity implements MyAdapter.
     {
         allContractsUser.get(position);
         String contractID = allContractsUser.get(position).getContractID();
+        String companyid = allContractsUser.get(position).getCompanyID();
 
         Intent intent = new Intent(UserContractHistory.this,User_Feedback.class);
         intent.putExtra( "contractID", contractID);
+        intent.putExtra( "companyid", companyid);
         startActivity(intent);
     }
     @Override

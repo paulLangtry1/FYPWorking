@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class User_Feedback extends AppCompatActivity {
 
@@ -36,6 +46,9 @@ public class User_Feedback extends AppCompatActivity {
     private static final String Feedback = "Feedback";
     private static final String collectiveFeedback = "CollectiveFeedback";
     private String uid;
+    private StorageReference profilepic;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     private User currentUser;
     private Contract currentcontract;
     private String contractid;
@@ -43,6 +56,7 @@ public class User_Feedback extends AppCompatActivity {
     private EditText etExperience,etPay,etDescribe;
     private Button btnSaveChanges;
     private ImageView imageView;
+    private String companyuid;
     private String adminuid,useruid;
     private RatingBar rateExperience,ratePay,rateWorklife;
 
@@ -65,8 +79,15 @@ public class User_Feedback extends AppCompatActivity {
         ratePay = findViewById(R.id.ratePunctuality);
         rateWorklife = findViewById(R.id.rateCommskills);
 
+        imageView = findViewById(R.id.compprofilepic);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        profilepic = storage.getReference();
+
 
         contractid = getIntent().getExtras().getString("contractID");
+        companyuid = getIntent().getExtras().getString("companyid");
 
 
 
@@ -74,6 +95,8 @@ public class User_Feedback extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbRef=db.getReference();
         uid=user.getUid();
+
+
 
         dbRef.child("ContractHistory").addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,6 +113,7 @@ public class User_Feedback extends AppCompatActivity {
                         tvCompanyName.setText(contract.getCompanyName());
 
 
+
                     }
                 }
             }
@@ -99,6 +123,9 @@ public class User_Feedback extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
 
@@ -195,6 +222,35 @@ public class User_Feedback extends AppCompatActivity {
 
 
         });
+
+        try
+        {
+            profilepic = storage.getReferenceFromUrl("gs://fypapp-8ebb3.appspot.com/images/Companyprofilepic" + companyuid);
+
+            File file =    File.createTempFile("image","jpeg");
+
+            profilepic.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>()
+            {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot)
+                {
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    imageView.setImageBitmap(bitmap);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(User_Feedback.this,"Image failed to load",Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 

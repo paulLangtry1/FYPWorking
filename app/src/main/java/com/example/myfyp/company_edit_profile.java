@@ -11,6 +11,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +52,7 @@ public class company_edit_profile extends AppCompatActivity {
     private String uid;
     private Uri filepath;
     private Company currentUser;
-    private TextView tvName,tvNumber,tvAddress;
+    private TextView tvName,tvcomppp,tvAddress;
     private EditText etChangeName,etChangeNumber,etChangeaddress;
     private Button btnSaveChanges;
     private ImageView imageView;
@@ -71,7 +74,8 @@ public class company_edit_profile extends AppCompatActivity {
         etChangeName = findViewById(R.id.etedittitle);
         etChangeNumber = findViewById(R.id.etaddressdetail);
         etChangeaddress = findViewById(R.id.etchangeaddress);
-        imageView = findViewById(R.id.userprofilepic);
+        imageView = findViewById(R.id.compprofilepic);
+        tvcomppp = findViewById(R.id.tvcomppp);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -135,6 +139,7 @@ public class company_edit_profile extends AppCompatActivity {
                 {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     imageView.setImageBitmap(bitmap);
+                    tvcomppp.setText("");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -234,6 +239,46 @@ public class company_edit_profile extends AppCompatActivity {
         }
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.company_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(company_edit_profile.this, ViewAllContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(company_edit_profile.this, CompanyHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
 
 
     private void uploadpicture()

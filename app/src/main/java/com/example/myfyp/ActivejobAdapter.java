@@ -67,7 +67,7 @@ public class ActivejobAdapter extends RecyclerView.Adapter<ActivejobAdapter.MyVi
     public ActivejobAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         //create new view - create a row - inflate the layout for the row
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.card_layout,parent,false);
+        View itemView =inflater.inflate(R.layout.layout_for_company_admin,parent,false);
         ActivejobAdapter.MyViewHolder viewHolder=new ActivejobAdapter.MyViewHolder(itemView, monContractListener);
         return viewHolder;
     }

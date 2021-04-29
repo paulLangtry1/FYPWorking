@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,10 +61,10 @@ public class Edit_profile extends AppCompatActivity {
     private String uid;
     private Uri filepath;
     private User currentUser;
-    private TextView tvName,tvNumber;
+    private TextView tvaddpp,tvNumber;
     private EditText etChangeName,etChangeNumber;
-    private Button btnSaveChanges,btnenlarge,btnaddjob;
-    private ImageView imageView,reference;
+    private Button btnSaveChanges,btnenlarge,btnaddjob,btnviewskillseditprof;
+    private ImageView imageView,reference,imgviewqmark;
     private String picPath;
     private ArrayList<Float> overallratingList = new ArrayList<Float>();
     private Float overallaverage;
@@ -83,11 +86,14 @@ public class Edit_profile extends AppCompatActivity {
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         etChangeName = findViewById(R.id.etedittitle);
         etChangeNumber = findViewById(R.id.etaddressdetail);
-        imageView = findViewById(R.id.userprofilepic);
+        imageView = findViewById(R.id.compprofilepic);
         ratingbar = findViewById(R.id.ratingBarUser);
         reference = findViewById(R.id.imgreference);
         btnaddjob = findViewById(R.id.btnaddextraskills);
         btnenlarge = findViewById(R.id.btnenlarge);
+        imgviewqmark = findViewById(R.id.imgviewqmarkedit);
+        tvaddpp = findViewById(R.id.tvaddpp);
+        btnviewskillseditprof = findViewById(R.id.btnviewskillseditprofile);
 
         spinner = findViewById(R.id.spinneraddmoreskills);
 
@@ -121,6 +127,13 @@ public class Edit_profile extends AppCompatActivity {
         gettingaverage();
 
 
+
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(Color.WHITE);
+            }
+        });
 
 
         dbRef.child("user").addValueEventListener(new ValueEventListener() {
@@ -165,6 +178,7 @@ public class Edit_profile extends AppCompatActivity {
                 {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     imageView.setImageBitmap(bitmap);
+                    tvaddpp.setText("");
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -213,6 +227,7 @@ public class Edit_profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choosePicture();
+                tvaddpp.setText("");
             }
         });
         reference.setOnClickListener(new View.OnClickListener()
@@ -224,6 +239,16 @@ public class Edit_profile extends AppCompatActivity {
             }
         });
 
+        btnviewskillseditprof.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(Edit_profile.this, view_skills_edit_prof.class);
+                startActivity(intent);
+
+            }
+        });
         btnenlarge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -231,6 +256,15 @@ public class Edit_profile extends AppCompatActivity {
                 Intent intent = new Intent(Edit_profile.this, EnlargedReference.class);
                 startActivity(intent);
 
+
+            }
+        });
+
+        imgviewqmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                new AlertDialog.Builder(Edit_profile.this).setTitle("Average Rating").setMessage("This is your current average rating from previous employers").show();
 
             }
         });
@@ -552,7 +586,12 @@ public class Edit_profile extends AppCompatActivity {
 
         }
 
-        ratingbar.setRating(overallaverage);
+        if(overallaverage!=null)
+        {
+            ratingbar.setRating(overallaverage);
+        }
+
+
 
 
 

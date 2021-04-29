@@ -11,9 +11,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,6 +54,7 @@ public class verifyActivity extends AppCompatActivity
     private FirebaseUser user;
     private String uid;
     private User currentUser;
+    private TextView tvclickhere;
     String picPath;
     private DatabaseReference c1v2;
     private StorageReference safepass;
@@ -67,6 +72,7 @@ public class verifyActivity extends AppCompatActivity
 
         displayImageView = findViewById(R.id.displayImageView);
         btnconfirmimage = findViewById(R.id.btnconfirmimage);
+        tvclickhere = findViewById(R.id.tvgetverified);
         uid = user.getUid();
         String currentuid = uid;
 
@@ -106,6 +112,14 @@ public class verifyActivity extends AppCompatActivity
             }
 
         });
+        tvclickhere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvclickhere.setText("");
+            }
+        });
+
+
 
 
         btnconfirmimage.setOnClickListener(new View.OnClickListener()
@@ -256,5 +270,47 @@ public class verifyActivity extends AppCompatActivity
 
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                homeview();
+                return true;
+            case R.id.item2:
+                ViewAll();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void ViewAll()
+    {
+
+        Intent intent = new Intent(verifyActivity.this, UserViewContracts.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+    public void homeview()
+    {
+
+        Intent intent = new Intent(verifyActivity.this, UserHomeActivity.class);
+        // intent.putExtra( "enddate", enddate);
+        startActivity(intent);
+
+
+    }
+
+
 
 }

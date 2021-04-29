@@ -3,38 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/purple_200"
     android:layout_height="match_parent"
-    tools:context=".Approve_current_safepass">
+    android:background="@color/purple_200"
+    tools:context=".delete_skill">
 
     <Button
         android:id="@+id/btnYes"
-        android:layout_width="99dp"
-        android:layout_height="51dp"
+        android:layout_width="96dp"
+        android:layout_height="40dp"
         android:drawableLeft="@drawable/ic_check"
         android:text="Yes"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="#02C52D"
+        android:textStyle="bold"
+        app:backgroundTint="#07AC3F"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.294"
+        app:layout_constraintEnd_toStartOf="@+id/btnNo"
+        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplayAccept"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425" />
 
     <Button
         android:id="@+id/btnNo"
-        android:layout_width="109dp"
-        android:layout_height="52dp"
+        android:layout_width="98dp"
+        android:layout_height="41dp"
         android:drawableLeft="@drawable/ic_x"
         android:text="No"
-        app:backgroundTint="#FF0000"
+        android:textStyle="bold"
+        app:backgroundTint="#E80404"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
+        app:layout_constraintVertical_bias="0.424" />
 
     <TextView
         android:id="@+id/tvDisplayAccept"
@@ -42,51 +43,41 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="#FFFFFF"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.877" />
+        app:layout_constraintVertical_bias="0.269" />
 
     <TextView
-        android:id="@+id/tvDisplayAccept2"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Username:"
+        android:text="Delete A Skill"
         android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
-
-    <TextView
-        android:id="@+id/tvsafepassuser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.068" />
 
     <ImageView
-        android:id="@+id/imagesafepassapprove"
-        android:layout_width="352dp"
-        android:layout_height="408dp"
+        android:id="@+id/imageView6"
+        android:layout_width="222dp"
+        android:layout_height="141dp"
+        android:src="@drawable/quikhire"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359"
+        app:layout_constraintVertical_bias="0.742"
         tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

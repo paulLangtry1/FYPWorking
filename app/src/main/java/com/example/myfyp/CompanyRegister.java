@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -65,6 +67,14 @@ public class CompanyRegister extends AppCompatActivity implements AdapterView.On
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(COMPANY);
         mAuth = FirebaseAuth.getInstance();
+
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(Color.WHITE);
+            }
+        });
+
 
         btnRegCompany.setOnClickListener(new View.OnClickListener()
         {

@@ -60,6 +60,7 @@
         app:layout_constraintVertical_bias="0.736" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@drawable/bg_menu"
@@ -69,23 +70,23 @@
         app:layout_constraintVertical_bias="0.896">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:orientation="horizontal"
-            android:paddingTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingTop="24dp">
 
             <LinearLayout
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/bg_green"
                     android:orientation="vertical"
 
@@ -93,35 +94,36 @@
 
                     <ImageView
                         android:id="@+id/btnaddjob"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
                         android:src="@drawable/pluspro" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="Add \nContract"
                         android:textColor="#FFF"
                         android:textSize="20sp" />
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/bg_green"
                     android:orientation="vertical"
 
@@ -129,35 +131,36 @@
 
                     <ImageView
                         android:id="@+id/btnrateemployee"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
                         android:src="@drawable/download" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="Rate \nEmployee"
                         android:textColor="#FFF"
                         android:textSize="20sp" />
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/bg_green"
                     android:orientation="vertical"
 
@@ -172,11 +175,11 @@
                         android:src="@drawable/checked" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="View \nApplicant"
                         android:textColor="#FFF"
                         android:textSize="20sp" />
@@ -185,6 +188,19 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvcompifempty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

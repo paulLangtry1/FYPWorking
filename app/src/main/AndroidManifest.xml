@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFYP">
-        <activity android:name=".edit_contract_company"></activity>
+        <activity android:name=".delete_skill"></activity>
+        <activity android:name=".view_skills_edit_prof" />
+        <activity android:name=".edit_contract_company" />
         <activity android:name=".view_skills" />
         <activity android:name=".AdminHome" />
         <activity android:name=".AdminLogin" />

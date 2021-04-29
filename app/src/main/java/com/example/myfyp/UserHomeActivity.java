@@ -494,6 +494,7 @@ public class UserHomeActivity extends AppCompatActivity
         {
             menu.getItem(1).setEnabled(false);
             menu.getItem(2).setEnabled(false);
+            menu.getItem(3).setEnabled(false);
 
         }
         else if (verified == true)
@@ -503,7 +504,7 @@ public class UserHomeActivity extends AppCompatActivity
         else if(virginAccount == true)
         {
             menu.getItem(1).setEnabled(false);
-            menu.getItem(4).setEnabled(false);
+            menu.getItem(3).setEnabled(false);
         }
         return true;
 
@@ -525,6 +526,9 @@ public class UserHomeActivity extends AppCompatActivity
                 return true;
             case R.id.item4:
                 recommendedJobs();
+                return true;
+            case R.id.item6:
+                allReviews();
                 return true;
             case R.id.item8:
                 maps();
